@@ -1,3 +1,6 @@
+.idea/
+cmake-build-debug/
+
 .obj/
 *~
 *.autosave
