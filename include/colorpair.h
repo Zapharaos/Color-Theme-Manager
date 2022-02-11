@@ -7,6 +7,7 @@
 
 #include <QString>
 #include <QColor>
+#include <QDebug>
 
 class ColorPair {
 
@@ -21,8 +22,8 @@ class ColorPair {
     ColorPair(const QString &id, const QColor &color1, const QColor &color2);
     ColorPair(const QString &id); //con. initialisant uniquement l’identifiant
 
-    QString toRGBA(const QColor &color); // static
-    QColor fromRGBA(const QString &colorStr); // static
+    static QString toRGBA(const QColor &color); // static
+    static QColor fromRGBA(const QString &colorStr); // static
 };
 
 #endif //COLOR_THEME_MANAGER_COLORPAIR_H

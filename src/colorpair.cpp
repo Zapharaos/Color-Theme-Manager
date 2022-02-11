@@ -7,26 +7,26 @@
 ColorPair::ColorPair() {}
 
 ColorPair::ColorPair(const QString &id) {
-    m_id = id;
+    this->m_id = id;
 }
 
 ColorPair::ColorPair(const ColorPair &color) {
-    m_id = color.m_id;
-    color1 = color.color1;
-    color2 = color.color2;
+    this->m_id = color.m_id;
+    this->color1 = color.color1;
+    this->color2 = color.color2;
 }
 
 ColorPair::ColorPair(const QString &id, const QColor &color1, const QColor &color2) {
-    m_id = id;
-    color1 = color1;
-    color2 = color2;
+    this->m_id = id;
+    this->color1 = color1;
+    this->color2 = color2;
 }
 
-QString toRGBA(const QColor &color) {
-    return color.name();
+QString ColorPair::toRGBA(const QColor &color) {
+    return color.name(QColor::HexArgb);
 }
 
-QColor fromRGBA(const QString &colorStr) {
+QColor ColorPair::fromRGBA(const QString &colorStr) {
     return QColor(colorStr);
 }
 
