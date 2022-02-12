@@ -23,10 +23,15 @@ ColorPair::ColorPair(const QString &id, const QColor &color1, const QColor &colo
 }
 
 QString ColorPair::toRGBA(const QColor &color) {
-    return color.name(QColor::HexArgb);
+    return color.name() + QString::number(color.alpha(), 16);
 }
 
 QColor ColorPair::fromRGBA(const QString &colorStr) {
-    return QColor(colorStr);
+    bool ok;
+    QColor color = QColor(colorStr.mid(0, 7));
+    int alpha = colorStr.mid(7,8).toInt(&ok, 16);
+    if(ok)
+        color.setAlpha(alpha);
+    return color;
 }
 
