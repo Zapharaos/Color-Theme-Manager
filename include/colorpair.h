@@ -22,8 +22,18 @@ class ColorPair {
     ColorPair(const QString &id, const QColor &color1, const QColor &color2);
     ColorPair(const QString &id); //con. initialisant uniquement l’identifiant
 
+    const QString& get_id() const;
+
     static QString toRGBA(const QColor &color); // static
     static QColor fromRGBA(const QString &colorStr); // static
 };
+
+class CompareColorPair
+{
+    public:
+    CompareColorPair();
+    bool operator()(const ColorPair &color1, const ColorPair &color2);
+};
+
 
 #endif //COLOR_THEME_MANAGER_COLORPAIR_H

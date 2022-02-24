@@ -35,3 +35,14 @@ QColor ColorPair::fromRGBA(const QString &colorStr) {
     return color;
 }
 
+const QString& ColorPair::get_id() const
+{
+    return m_id;
+}
+
+
+bool CompareColorPair::operator()(const ColorPair &color1, const ColorPair &color2)
+{
+    return color1.get_id().QString::compare(color2.get_id()) < 0; // Qt::CaseInsensitive
+}
+
