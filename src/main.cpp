@@ -9,8 +9,10 @@
 int main(int argc, char *argv[])
 {
     QString path = QString("../color-theme-manager/themes/darkTheme.xml");
-    if(XMLReader::read(path) == -1)
-        qDebug() << "error: open"; // insert error handle
+    XMLReader reader;
+    if(reader.read(path) == -1)
+        qDebug() << "error XMLReader::read()";
+        // TODO : insert some error handle
 
     QApplication a(argc, argv);
 	MainWindow w;
