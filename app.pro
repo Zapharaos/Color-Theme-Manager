@@ -35,8 +35,8 @@ SOURCES += \
 	src/colorpair.cpp
 
 HEADERS += \
-    include/XMLReader.h \
-    include/colorpair.h \
+        include/XMLReader.h \
+        include/colorpair.h \
 	mainwindow.h \
 
 FORMS += \
