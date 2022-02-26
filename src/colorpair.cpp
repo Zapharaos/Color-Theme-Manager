@@ -12,14 +12,14 @@ ColorPair::ColorPair(const QString &id) {
 
 ColorPair::ColorPair(const ColorPair &color) {
     this->m_id = color.m_id;
-    this->color1 = color.color1;
-    this->color2 = color.color2;
+    this->m_source = color.m_source;
+    this->m_target = color.m_target;
 }
 
-ColorPair::ColorPair(const QString &id, const QColor &color1, const QColor &color2) {
+ColorPair::ColorPair(const QString &id, const QColor &source, const QColor &target) {
     this->m_id = id;
-    this->color1 = color1;
-    this->color2 = color2;
+    this->m_source = source;
+    this->m_target = target;
 }
 
 QString ColorPair::toRGBA(const QColor &color) {
@@ -35,14 +35,15 @@ QColor ColorPair::fromRGBA(const QString &colorStr) {
     return color;
 }
 
-const QString& ColorPair::get_id() const
+QString ColorPair::id() const
 {
     return m_id;
 }
 
 
-bool CompareColorPair::operator()(const ColorPair &color1, const ColorPair &color2)
+bool CompareColorPair::operator()(const ColorPair &color1, const ColorPair &color2) const
 {
-    return color1.get_id().QString::compare(color2.get_id()) < 0; // Qt::CaseInsensitive
+    return color1.id().QString::compare(color2.id()) < 0; // Qt::CaseInsensitive
+    // return color1.id() < color2.id();
 }
 

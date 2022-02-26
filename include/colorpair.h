@@ -13,16 +13,16 @@ class ColorPair {
 
     private:
     QString m_id;
-    QColor color1;
-    QColor color2;
+    QColor m_source;
+    QColor m_target;
 
     public:
     ColorPair(); //constructeur vide
     ColorPair(const ColorPair &color); //con. par copie
-    ColorPair(const QString &id, const QColor &color1, const QColor &color2);
+    ColorPair(const QString &id, const QColor &source, const QColor &target);
     ColorPair(const QString &id); //con. initialisant uniquement l’identifiant
 
-    const QString& get_id() const;
+    QString id() const;
 
     static QString toRGBA(const QColor &color); // static
     static QColor fromRGBA(const QString &colorStr); // static
@@ -31,8 +31,8 @@ class ColorPair {
 class CompareColorPair
 {
     public:
-    CompareColorPair();
-    bool operator()(const ColorPair &color1, const ColorPair &color2);
+    CompareColorPair() {}
+    bool operator()(const ColorPair &color1, const ColorPair &color2) const;
 };
 
 
