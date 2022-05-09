@@ -35,6 +35,24 @@ QColor ColorPair::fromRGBA(const QString &colorStr) {
     return color;
 }
 
+void ColorPair::SetSource(QColor source)
+{
+    this->m_source = source;
+}
+QColor ColorPair::GetSource() const
+{
+    return m_source;
+}
+
+void ColorPair::SetTarget(QColor target)
+{
+    this->m_target = target;
+}
+QColor ColorPair::GetTarget() const
+{
+    return m_target;
+}
+
 QString ColorPair::id() const
 {
     return m_id;

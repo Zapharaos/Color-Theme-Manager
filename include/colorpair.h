@@ -22,6 +22,12 @@ class ColorPair {
     ColorPair(const QString &id, const QColor &source, const QColor &target);
     ColorPair(const QString &id); //con. initialisant uniquement l’identifiant
 
+    void SetSource(QColor source);
+    QColor GetSource() const;
+
+    void SetTarget(QColor target);
+    QColor GetTarget() const;
+
     QString id() const;
 
     static QString toRGBA(const QColor &color); // static
