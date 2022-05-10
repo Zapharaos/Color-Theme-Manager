@@ -31,20 +31,28 @@ VPATH += $${SRC_DIR} $${SRC_WIDGETS_DIR} $${INCLUDE_DIR} $${INCLUDE_WIDGETS_DIR}
 SOURCES += \
 	mainwindow.cpp \
 	main.cpp \
+	src/OrientablePushButton.cpp \
 	src/Theme.cpp \
 	src/Themes.cpp \
+	src/Widgets/customwidget.cpp \
+	src/Widgets/themesmenuwidget.cpp \
 	src/XMLReader.cpp \
 	src/colorpair.cpp
 
 HEADERS += \
+    include/OrientablePushButton.h \
     include/Theme.h \
     include/Themes.h \
-        include/XMLReader.h \
-        include/colorpair.h \
-	mainwindow.h \
+    include/Widgets/customwidget.h \
+    include/Widgets/themesmenuwidget.h \
+    include/XMLReader.h \
+    include/colorpair.h \
+	mainwindow.h
 
 FORMS += \
-	mainwindow.ui
+	mainwindow.ui \
+	ui/customwidget.ui \
+	ui/themesmenuwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

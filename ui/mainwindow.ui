@@ -6,23 +6,79 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>844</width>
+    <width>1260</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="SideMenu">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
+     </layout>
+    </item>
+    <item row="0" column="1">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QTabWidget" name="tabWidget">
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Tab 1</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Tab 2</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>844</width>
-     <height>22</height>
+     <width>1260</width>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTheme">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionCreate_new_theme"/>
+    <addaction name="actionImport_new_theme"/>
+    <addaction name="actionImport_from_link"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <addaction name="menuTheme"/>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -48,6 +104,26 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionCreate_new_theme">
+   <property name="text">
+    <string>Create new theme</string>
+   </property>
+  </action>
+  <action name="actionImport_new_theme">
+   <property name="text">
+    <string>Import new theme</string>
+   </property>
+  </action>
+  <action name="actionImport_from_link">
+   <property name="text">
+    <string>Import from link</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
