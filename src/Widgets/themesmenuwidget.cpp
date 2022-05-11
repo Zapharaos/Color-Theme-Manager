@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 
 #include "customwidget.h"
-#include "OrientablePushButton.h"
+#include "../OrientablePushButton.h"
 #include <iostream>
 
 ThemesMenuWidget::ThemesMenuWidget(QWidget *parent) :
