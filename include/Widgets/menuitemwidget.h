@@ -4,16 +4,16 @@
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class CustomWidget; }
+namespace Ui { class MenuItemWidget; }
 QT_END_NAMESPACE
 
-class CustomWidget : public QWidget
+class MenuItemWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit CustomWidget(QWidget *parent = nullptr);
-    ~CustomWidget();
+    explicit MenuItemWidget(QWidget *parent = nullptr);
+    ~MenuItemWidget();
 
     void setText(const QString &text);
     QString getText();
@@ -25,7 +25,7 @@ private slots:
     void on_toolButton_clicked();
 
 private:
-    Ui::CustomWidget *ui;
+    Ui::MenuItemWidget *ui;
 };
 
 #endif // CUSTOMWIDGET_H

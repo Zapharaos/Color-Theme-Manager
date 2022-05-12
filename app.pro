@@ -34,8 +34,8 @@ SOURCES += \
 	src/OrientablePushButton.cpp \
 	src/Theme.cpp \
 	src/Themes.cpp \
-	src/Widgets/customwidget.cpp \
-	src/Widgets/themesmenuwidget.cpp \
+	src/Widgets/menuitemwidget.cpp \
+	src/Widgets/themewidget.cpp \
 	src/XMLReader.cpp \
 	src/colorpair.cpp
 
@@ -43,16 +43,16 @@ HEADERS += \
     include/OrientablePushButton.h \
     include/Theme.h \
     include/Themes.h \
-    include/Widgets/customwidget.h \
-    include/Widgets/themesmenuwidget.h \
+    include/Widgets/menuitemwidget.h \
+    include/Widgets/themewidget.h \
     include/XMLReader.h \
     include/colorpair.h \
 	mainwindow.h
 
 FORMS += \
 	mainwindow.ui \
-	ui/customwidget.ui \
-	ui/themesmenuwidget.ui
+	ui/menuitemwidget.ui \
+	ui/themewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

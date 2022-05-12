@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,7 +17,17 @@ public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 
+signals:
+    void sendCurrentTheme(const QString &text);
+
 private:
 	Ui::MainWindow *ui;
+
+private slots:
+    void createTheme();
+    void currentTheme(const QString &text);
+    void removeMenuItem(const QString &text);
+    void on_toggleMenu_clicked();
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };
 #endif // MAINWINDOW_H
