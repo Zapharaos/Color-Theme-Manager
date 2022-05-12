@@ -2,7 +2,7 @@
 // Source : https://stackoverflow.com/questions/53135674/how-to-create-a-vertical-rotated-button-in-qt-with-c
 //
 
-#include "OrientablePushButton.h"
+#include "orientablepushbutton.h"
 
 #include <QPainter>
 #include <QStyleOptionButton>
