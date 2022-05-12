@@ -3,6 +3,8 @@
 
 #include "menuitemwidget.h"
 #include <QDebug>
+#include <QIcon>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent),
@@ -54,9 +56,11 @@ void MainWindow::createTheme()
 
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
+    item->setIcon(QIcon("../color-theme-manager/images/easteregg.png"));
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
+    ui->listWidget->setIconSize(QSize(35,35));
 
     /*QListWidgetItem* current = ui->listWidget->currentItem();
     MenuItemWidget* wid = dynamic_cast<MenuItemWidget*>( ui->listWidget->itemWidget(item) );
