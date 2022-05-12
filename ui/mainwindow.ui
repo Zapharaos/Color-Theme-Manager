@@ -163,7 +163,7 @@
   <customwidget>
    <class>OrientablePushButton</class>
    <extends>QPushButton</extends>
-   <header>orientablepushbutton.h</header>
+   <header>include/Widgets/orientablepushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>ThemeWidget</class>
