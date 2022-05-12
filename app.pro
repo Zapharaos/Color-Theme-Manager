@@ -31,7 +31,7 @@ VPATH += $${SRC_DIR} $${SRC_WIDGETS_DIR} $${INCLUDE_DIR} $${INCLUDE_WIDGETS_DIR}
 SOURCES += \
 	mainwindow.cpp \
 	main.cpp \
-	src/OrientablePushButton.cpp \
+	src/Widgets/OrientablePushButton.cpp \
 	src/Theme.cpp \
 	src/Themes.cpp \
 	src/Widgets/menuitemwidget.cpp \
@@ -40,7 +40,7 @@ SOURCES += \
 	src/colorpair.cpp
 
 HEADERS += \
-    include/OrientablePushButton.h \
+    include/Widgets/OrientablePushButton.h \
     include/Theme.h \
     include/Themes.h \
     include/Widgets/menuitemwidget.h \
