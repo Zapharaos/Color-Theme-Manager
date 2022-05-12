@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
+#include <QUuid>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,7 +27,7 @@ private:
 private slots:
     void createTheme();
     void currentTheme(const QString &text);
-    void removeMenuItem(const QString &text);
+    void removeMenuItem(const QUuid &id);
     void on_toggleMenu_clicked();
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };

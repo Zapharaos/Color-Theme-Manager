@@ -50,6 +50,7 @@ void MainWindow::createTheme()
 
     auto widget = new MenuItemWidget(this);
     widget->setText("New theme");
+    widget->setID(QUuid::createUuid());
 
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
@@ -73,6 +74,7 @@ void MainWindow::createTheme()
 
 void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    if(current == nullptr) return;
     emit sendCurrentTheme(dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(current))->getText());
 }
 
@@ -99,12 +101,12 @@ void MainWindow::on_toggleMenu_clicked()
 
 // Event : Remove item from Menu
 
-void MainWindow::removeMenuItem(const QString &text)
+void MainWindow::removeMenuItem(const QUuid &id)
 {
-    for (int i = 0; i < ui->listWidget->count(); ++i) {
-        auto item = ui->listWidget->item(i);
-        auto itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
-        if (itemWidget->getText() == text){
+    for (int i = 0; i < ui->listWidget->count(); i++) {
+        QListWidgetItem* item = ui->listWidget->item(i);
+        MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+        if (itemWidget->getID() == id){
             delete item;
             break;
         }
