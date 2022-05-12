@@ -1,7 +1,10 @@
 #ifndef THEMEWIDGET_H
 #define THEMEWIDGET_H
 
+#include "Theme.h"
+
 #include <QWidget>
+#include <QUuid>
 
 namespace Ui {
 class ThemeWidget;
@@ -17,6 +20,10 @@ public:
 
 private:
     Ui::ThemeWidget *ui;
+    Theme* m_theme;
+
+private slots:
+    void loadTheme(Theme *theme);
 };
 
 #endif // THEMEWIDGET_H

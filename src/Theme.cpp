@@ -9,19 +9,38 @@ Theme::Theme() {}
 
 Theme::Theme(const QString &name)
 {
+    this->m_id = QUuid::createUuid();
     this->m_name = name;
 }
 
 Theme::Theme(const Theme &theme)
 {
+    this->m_id = theme.m_id;
     this->m_name = theme.m_name;
     this->m_colorPairs = theme.m_colorPairs;
 }
 
-Theme::Theme(const QString &name, const Set &colorPairs)
+Theme::Theme(const QUuid &id, const QString &name, const Set &colorPairs)
 {
+    this->m_id = id;
     this->m_name = name;
     this->m_colorPairs = colorPairs;
+}
+
+void Theme::setID(const QUuid &id) {
+    this->m_id = id;
+}
+
+QUuid Theme::getID() {
+    return m_id;
+}
+
+void Theme::setName(const QString &name) {
+    this->m_name = name;
+}
+
+QString Theme::getName() {
+    return m_name;
 }
 
 void ReplaceAll(string &line, string source, string target)

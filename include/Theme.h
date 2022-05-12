@@ -2,6 +2,7 @@
 #define THEME_H
 
 #include <set>
+#include <QUuid>
 #include <QString>
 #include <fstream>
 #include <iostream>
@@ -16,15 +17,21 @@ class Theme {
     using Set = std::set<ColorPair>;
 
     private:
-    // id ?
+    QUuid m_id;
     QString m_name;
     Set m_colorPairs;
 
     public:
     Theme(); //constructeur vide
     Theme(const Theme &theme); //con. par copie
-    Theme(const QString &name, const Set &colorPairs);
+    Theme(const QUuid &id, const QString &name, const Set &colorPairs);
     Theme(const QString &name); //con. initialisant uniquement le nom
+
+    void setID(const QUuid &id);
+    QUuid getID();
+
+    void setName(const QString &name);
+    QString getName();
 
     int ApplyColorPair(string filename, ColorPair color);
 };

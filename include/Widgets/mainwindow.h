@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "Theme.h"
+
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
@@ -16,17 +18,16 @@ class MainWindow : public QMainWindow
 
 public:
 	MainWindow(QWidget *parent = nullptr);
-	~MainWindow();
+    ~MainWindow();
 
 signals:
-    void sendCurrentTheme(const QString &text);
+    void sendTheme(Theme *theme);
 
 private:
 	Ui::MainWindow *ui;
 
 private slots:
     void createTheme();
-    void currentTheme(const QString &text);
     void removeMenuItem(const QUuid &id);
     void on_toggleMenu_clicked();
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);

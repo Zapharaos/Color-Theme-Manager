@@ -14,23 +14,18 @@ MenuItemWidget::~MenuItemWidget()
     delete ui;
 }
 
-void MenuItemWidget::setText(const QString &text) {
-    ui->label->setText(text);
+void MenuItemWidget::setTheme(const QString &name)
+{
+    m_theme = new Theme(name);
+    ui->label->setText(name);
 }
 
-QString MenuItemWidget::getText() {
-    return ui->label->text();
-}
-
-void MenuItemWidget::setID(const QUuid &id) {
-    this->m_id = id;
-}
-
-QUuid MenuItemWidget::getID() {
-    return m_id;
+Theme* MenuItemWidget::getTheme()
+{
+    return m_theme;
 }
 
 void MenuItemWidget::on_toolButton_clicked()
 {
-    emit sendRemoveItem(getID());
+    emit sendRemoveItem(m_theme->getID());
 }

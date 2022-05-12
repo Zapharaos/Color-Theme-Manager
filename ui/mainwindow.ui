@@ -62,15 +62,8 @@
     </item>
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
-       <widget class="ThemeWidget" name="theme" native="true"/>
-      </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
+       <widget class="ThemeWidget" name="theme" native="true"/>
       </item>
      </layout>
     </item>

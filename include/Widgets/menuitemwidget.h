@@ -1,8 +1,8 @@
 #ifndef CUSTOMWIDGET_H
 #define CUSTOMWIDGET_H
 
+#include "Theme.h"
 #include <QWidget>
-#include <QUuid>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MenuItemWidget; }
@@ -16,10 +16,8 @@ public:
     explicit MenuItemWidget(QWidget *parent = nullptr);
     ~MenuItemWidget();
 
-    void setText(const QString &text);
-    QString getText();
-    void setID(const QUuid &id);
-    QUuid getID();
+    void setTheme(const QString &name);
+    Theme* getTheme();
 
 
 signals:
@@ -30,7 +28,7 @@ private slots:
 
 private:
     Ui::MenuItemWidget *ui;
-    QUuid m_id;
+    Theme *m_theme;
 };
 
 #endif // CUSTOMWIDGET_H

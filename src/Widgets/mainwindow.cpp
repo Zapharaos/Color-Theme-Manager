@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
         defaultItem->setFlags(defaultItem->flags() & ~Qt::ItemIsEnabled);
         ui->listWidget->addItem(defaultItem);
     }
+    ui->listWidget->setIconSize(QSize(35,35));
 
     /*for(int i=0; i<100; i++)
     {
@@ -36,7 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
     }*/
 
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme()));
-    connect(this, SIGNAL(sendCurrentTheme(const QString &)), this, SLOT(currentTheme(const QString &)));
+
+    connect(this, SIGNAL(sendTheme(Theme *)), ui->theme, SLOT(loadTheme(Theme *)));
 }
 
 MainWindow::~MainWindow()
@@ -51,8 +53,8 @@ void MainWindow::createTheme()
         ui->listWidget->removeItemWidget(ui->listWidget->takeItem(0));
 
     auto widget = new MenuItemWidget(this);
-    widget->setText("New theme");
-    widget->setID(QUuid::createUuid());
+    widget->setTheme("New theme");
+
 
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
@@ -60,18 +62,7 @@ void MainWindow::createTheme()
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
-    ui->listWidget->setIconSize(QSize(35,35));
-
-    /*QListWidgetItem* current = ui->listWidget->currentItem();
-    MenuItemWidget* wid = dynamic_cast<MenuItemWidget*>( ui->listWidget->itemWidget(item) );
-    qDebug() << dynamic_cast<MenuItemWidget*>(wid)->getText();
-    emit sendCurrentTheme(widget->getText());*/
-
-    /*qDebug() << ui->listWidget->count();
-    QListWidgetItem* current = ui->listWidget->currentItem();
-    LblNames* widget = dynamic_cast<LblNames*>( listWidget->itemWidget(item) );*/
-
-    emit sendCurrentTheme(dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item))->getText());
+    ui->listWidget->setCurrentItem(item);
 }
 
 // Event : Switch current theme
@@ -79,12 +70,8 @@ void MainWindow::createTheme()
 void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     if(current == nullptr) return;
-    emit sendCurrentTheme(dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(current))->getText());
-}
-
-void MainWindow::currentTheme(const QString &text)
-{
-    ui->pushButton->setText(text);
+    auto currentItem = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(current));
+    emit sendTheme(currentItem->getTheme());
 }
 
 // Event : Collapse/Expand Menu
@@ -107,15 +94,18 @@ void MainWindow::on_toggleMenu_clicked()
 
 void MainWindow::removeMenuItem(const QUuid &id)
 {
+    // Looking for the item's ID
     for (int i = 0; i < ui->listWidget->count(); i++) {
         QListWidgetItem* item = ui->listWidget->item(i);
         MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
-        if (itemWidget->getID() == id){
+        Theme *theme = itemWidget->getTheme();
+        if (theme->getID() == id){
             delete item;
             break;
         }
     }
 
+    // If empty after removal : insert default item
     if(ui->listWidget->count() == 0)
     {
         auto defaultItem = new QListWidgetItem("No themes yet !");

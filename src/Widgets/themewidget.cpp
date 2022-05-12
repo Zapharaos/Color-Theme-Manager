@@ -12,3 +12,10 @@ ThemeWidget::~ThemeWidget()
 {
     delete ui;
 }
+
+void ThemeWidget::loadTheme(Theme *theme)
+{
+    m_theme = theme;
+    ui->name->setText(m_theme->getID().toString());
+    // chercher theme dans fichier load
+}
