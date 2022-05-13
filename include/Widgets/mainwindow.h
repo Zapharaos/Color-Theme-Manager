@@ -22,13 +22,16 @@ public:
 
 signals:
     void sendTheme(Theme *theme);
+    void sendCreateColor();
 
 private:
 	Ui::MainWindow *ui;
 
 private slots:
     void createTheme();
+    void transmitCreateColor();
     void removeMenuItem(const QUuid &id);
+    void toggleMenu();
     void on_toggleMenu_clicked();
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };

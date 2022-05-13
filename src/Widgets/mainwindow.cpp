@@ -38,13 +38,20 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme()));
 
+    connect(ui->actionCollapse_Expand_menu, SIGNAL(triggered()), this, SLOT(toggleMenu()));
+
     connect(this, SIGNAL(sendTheme(Theme *)), ui->theme, SLOT(loadTheme(Theme *)));
+
+    connect(ui->actionCreate_new_color, SIGNAL(triggered()), this, SLOT(transmitCreateColor()));
+    connect(this, SIGNAL(sendCreateColor()), ui->theme, SLOT(createColor()));
 }
 
 MainWindow::~MainWindow()
 {
 	delete ui;
 }
+
+// Event : New theme (Ctrl+Maj+N)
 
 void MainWindow::createTheme()
 {
@@ -74,9 +81,16 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
     emit sendTheme(currentItem->getTheme());
 }
 
-// Event : Collapse/Expand Menu
+// Event : Create color
 
-void MainWindow::on_toggleMenu_clicked()
+void MainWindow::transmitCreateColor()
+{
+    emit sendCreateColor();
+}
+
+// Event : Collapse/Expand Menu (Ctrl+M)
+
+void MainWindow::toggleMenu()
 {
     if(ui->toggleMenu->text() == "Collapse")
     {
@@ -88,6 +102,11 @@ void MainWindow::on_toggleMenu_clicked()
         ui->toggleMenu->setText("Collapse");
         ui->listWidget->setVisible(true);
     }
+}
+
+void MainWindow::on_toggleMenu_clicked()
+{
+    emit ui->actionCollapse_Expand_menu->trigger();
 }
 
 // Event : Remove item from Menu

@@ -8,22 +8,6 @@ ThemeWidget::ThemeWidget(QWidget *parent) :
     ui(new Ui::ThemeWidget)
 {
     ui->setupUi(this);
-
-    ui->colorsList->setFlow(QListView::LeftToRight);
-    ui->colorsList->setResizeMode(QListView::Adjust);
-    ui->colorsList->setGridSize((new ThemeItemWidget())->size()*1.1);
-    ui->colorsList->setViewMode(QListView::IconMode);
-
-    for(int i=0; i<10;i++)
-    {
-        auto widget = new ThemeItemWidget();
-        auto item = new QListWidgetItem();
-        item->setSizeHint(widget->sizeHint());
-        item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
-
-        ui->colorsList->addItem(item);
-        ui->colorsList->setItemWidget(item, widget);
-    }
 }
 
 ThemeWidget::~ThemeWidget()
@@ -36,4 +20,29 @@ void ThemeWidget::loadTheme(Theme *theme)
     m_theme = theme;
     ui->name->setText(m_theme->getID().toString());
     // chercher theme dans fichier load
+}
+
+void ThemeWidget::createColor()
+{
+    auto widget = new ThemeItemWidget(this);
+    auto item = new QListWidgetItem();
+    item->setSizeHint(widget->sizeHint());
+    item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+
+    ui->colorsList->addItem(item);
+    ui->colorsList->setItemWidget(item, widget);
+}
+
+void ThemeWidget::removeColorItem(const QString color_id)
+{
+    // Looking for the color's ID
+    for (int i = 0; i < ui->colorsList->count(); i++) {
+        QListWidgetItem* item = ui->colorsList->item(i);
+        ThemeItemWidget* itemWidget = dynamic_cast<ThemeItemWidget*>(ui->colorsList->itemWidget(item));
+        ColorPair *colorPair = itemWidget->getColor();
+        if (colorPair->GetID() == color_id){
+            delete item;
+            break;
+        }
+    }
 }
