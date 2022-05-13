@@ -8,6 +8,10 @@ ThemeWidget::ThemeWidget(QWidget *parent) :
     ui(new Ui::ThemeWidget)
 {
     ui->setupUi(this);
+    ui->colorsList->setStyleSheet( "QListWidget::item { background: #e5e5e5; border: 1px solid black; border-radius: 3px;}" );
+
+    ui->colorsList->setGridSize(m_qsize);
+    //bite->sizeHint();
 }
 
 ThemeWidget::~ThemeWidget()
@@ -18,6 +22,8 @@ ThemeWidget::~ThemeWidget()
 void ThemeWidget::loadTheme(Theme *theme)
 {
     m_theme = theme;
+    ThemeItemWidget* bite = new ThemeItemWidget(this);
+    m_qsize = bite->sizeHint() + QSize(20,20);
     ui->name->setText(m_theme->getID().toString());
     // chercher theme dans fichier load
 }

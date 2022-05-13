@@ -53,6 +53,10 @@ QColor ColorPair::GetTarget() const
     return m_target;
 }
 
+void ColorPair::SetID(QString id)
+{
+    this->m_id = id;
+}
 QString ColorPair::GetID() const
 {
     return m_id;

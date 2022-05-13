@@ -29,16 +29,28 @@
    </item>
    <item>
     <widget class="QListWidget" name="colorsList">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="movement">
+      <enum>QListView::Free</enum>
+     </property>
      <property name="flow">
       <enum>QListView::LeftToRight</enum>
+     </property>
+     <property name="isWrapping" stdset="0">
+      <bool>true</bool>
      </property>
      <property name="resizeMode">
       <enum>QListView::Adjust</enum>
      </property>
+     <property name="spacing">
+      <number>20</number>
+     </property>
      <property name="gridSize">
       <size>
-       <width>220</width>
-       <height>220</height>
+       <width>256</width>
+       <height>200</height>
       </size>
      </property>
      <property name="viewMode">

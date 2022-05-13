@@ -21,6 +21,7 @@ public:
 private:
     Ui::ThemeWidget *ui;
     Theme* m_theme;
+    QSize m_qsize;
 
 private slots:
     void loadTheme(Theme *theme);

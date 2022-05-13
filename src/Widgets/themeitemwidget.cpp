@@ -1,7 +1,7 @@
 #include "themeitemwidget.h"
 #include "ui_themeitemwidget.h"
 
-#include <QDialog>
+#include <QColorDialog>
 #include <QMessageBox>
 
 ThemeItemWidget::ThemeItemWidget(QWidget *parent) :
@@ -11,9 +11,15 @@ ThemeItemWidget::ThemeItemWidget(QWidget *parent) :
     ui->setupUi(this);
 
     m_color = new ColorPair("New Color");
+
     ui->colorID->setText(m_color->GetID());
+    ui->colorID->setAlignment(Qt::AlignCenter);
+
     ui->srcRgb->setText(ColorPair::toRGBA(m_color->GetSource()));
+    ui->srcRgb->setAlignment(Qt::AlignCenter);
+
     ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
+    ui->trgRgb->setAlignment(Qt::AlignCenter);
 
     connect(this, SIGNAL(sendRemoveColor(const QString)), parent, SLOT(removeColorItem(const QString)));
 }
@@ -54,7 +60,7 @@ void ThemeItemWidget::on_deleteButton_clicked()
 
     switch(popup.exec())
     {
-        case QMessageBox::Ok:
+        case QMessageBox::Discard:
              emit sendRemoveColor(m_color->GetID());
              break;
         case QMessageBox::Cancel:
@@ -63,15 +69,71 @@ void ThemeItemWidget::on_deleteButton_clicked()
 }
 
 
-void ThemeItemWidget::on_editButton_clicked()
+void ThemeItemWidget::on_srcButton_clicked()
 {
-    if(ui->editButton->text() == "Edit")
+    // generate issue : item widget layout is too small
+    // TODO : signal/slot to parent back and forth to avoid the issue
+
+    QColor color = QColorDialog::getColor(ColorPair::toRGBA(m_color->GetSource()), this, "Pick source color");
+    if(color.isValid())
     {
-        ui->editButton->setText("Save");
+        ui->srcButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        ui->srcRgb->setText(ColorPair::toRGBA(color));
+        ui->srcRgb->setAlignment(Qt::AlignCenter);
+        m_color->SetSource(color);
+
     }
-    else
+}
+
+
+void ThemeItemWidget::on_trgButton_clicked()
+{
+    // generate issue : item widget layout is too small
+    // TODO : signal/slot to parent back and forth to avoid the issue
+
+    QColor color = QColorDialog::getColor(ColorPair::toRGBA(m_color->GetTarget()), this, "Pick target color");
+    if(color.isValid())
     {
-        ui->editButton->setText("Edit");
+        ui->trgButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        ui->trgRgb->setText(ColorPair::toRGBA(color));
+        ui->trgRgb->setAlignment(Qt::AlignCenter);
+        m_color->SetTarget(color);
     }
+}
+
+
+void ThemeItemWidget::on_srcRgb_textChanged()
+{
+    auto rgb = ui->srcRgb->toPlainText();
+    QColor color = ColorPair::fromRGBA(rgb);
+    if(color.isValid())
+    {
+        ui->srcButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        m_color->SetSource(color);
+    }
+}
+
+
+void ThemeItemWidget::on_trgRgb_textChanged()
+{
+    auto rgb = ui->trgRgb->toPlainText();
+    QColor color = ColorPair::fromRGBA(rgb);
+    if(color.isValid())
+    {
+        ui->trgButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        m_color->SetTarget(color);
+    }
+}
+
+
+void ThemeItemWidget::on_colorID_textChanged()
+{
+    auto id = ui->colorID->toPlainText();
+
+    if(id.isEmpty())
+        return;
+
+    m_color->SetID(id);
+
 }
 

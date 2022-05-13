@@ -16,6 +16,8 @@ public:
     explicit ThemeItemWidget(QWidget *parent = nullptr);
     ~ThemeItemWidget();
 
+    static const QSize qsize;
+
     void setColor(const ColorPair &colorPair);
     ColorPair* getColor();
 
@@ -29,7 +31,11 @@ private:
 private slots:
     void loadColor(ColorPair *color);
     void on_deleteButton_clicked();
-    void on_editButton_clicked();
+    void on_srcButton_clicked();
+    void on_trgButton_clicked();
+    void on_srcRgb_textChanged();
+    void on_trgRgb_textChanged();
+    void on_colorID_textChanged();
 };
 
 #endif // THEMEITEMWIDGET_H
