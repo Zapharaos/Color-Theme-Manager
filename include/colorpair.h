@@ -28,7 +28,7 @@ class ColorPair {
     void SetTarget(QColor target);
     QColor GetTarget() const;
 
-    QString id() const;
+    QString GetID() const;
 
     static QString toRGBA(const QColor &color); // static
     static QColor fromRGBA(const QString &colorStr); // static

@@ -30,6 +30,9 @@
           <property name="text">
            <string>Collapse</string>
           </property>
+          <property name="shortcut">
+           <string>Ctrl+M</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -63,7 +66,11 @@
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="ThemeWidget" name="theme" native="true"/>
+       <widget class="ThemeWidget" name="theme" native="true">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -135,10 +142,16 @@
    <property name="text">
     <string>Save</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionCreate_new_theme">
    <property name="text">
     <string>Create new theme</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="actionImport_new_theme">

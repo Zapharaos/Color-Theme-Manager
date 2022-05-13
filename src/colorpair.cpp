@@ -53,7 +53,7 @@ QColor ColorPair::GetTarget() const
     return m_target;
 }
 
-QString ColorPair::id() const
+QString ColorPair::GetID() const
 {
     return m_id;
 }
@@ -61,7 +61,7 @@ QString ColorPair::id() const
 
 bool CompareColorPair::operator()(const ColorPair &color1, const ColorPair &color2) const
 {
-    return color1.id().QString::compare(color2.id()) < 0; // Qt::CaseInsensitive
+    return color1.GetID().QString::compare(color2.GetID()) < 0; // Qt::CaseInsensitive
     // return color1.id() < color2.id();
 }
 

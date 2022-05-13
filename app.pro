@@ -31,28 +31,31 @@ VPATH += $${SRC_DIR} $${SRC_WIDGETS_DIR} $${INCLUDE_DIR} $${INCLUDE_WIDGETS_DIR}
 SOURCES += \
 	mainwindow.cpp \
 	main.cpp \
-	src/Widgets/orientablepushbutton.cpp \
-	src/Theme.cpp \
-	src/Themes.cpp \
-	src/Widgets/menuitemwidget.cpp \
-	src/Widgets/themewidget.cpp \
-	src/XMLReader.cpp \
-	src/colorpair.cpp
+	Widgets/orientablepushbutton.cpp \
+	Theme.cpp \
+	Themes.cpp \
+	Widgets/menuitemwidget.cpp \
+	Widgets/themewidget.cpp \
+	Widgets/themeitemwidget.cpp \
+	XMLReader.cpp \
+	colorpair.cpp
 
 HEADERS += \
-    include/Widgets/orientablepushbutton.h \
-    include/Theme.h \
-    include/Themes.h \
-    include/Widgets/menuitemwidget.h \
-    include/Widgets/themewidget.h \
-    include/XMLReader.h \
-    include/colorpair.h \
+    Theme.h \
+    Themes.h \
+    Widgets/orientablepushbutton.h \
+    Widgets/menuitemwidget.h \
+    Widgets/themewidget.h \
+    Widgets/themeitemwidget.h \
+    XMLReader.h \
+    colorpair.h \
 	mainwindow.h
 
 FORMS += \
 	mainwindow.ui \
-	ui/menuitemwidget.ui \
-	ui/themewidget.ui
+	themeitemwidget.ui \
+	menuitemwidget.ui \
+	themewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
