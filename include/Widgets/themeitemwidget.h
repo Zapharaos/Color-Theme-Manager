@@ -22,7 +22,7 @@ public:
     ColorPair* getColor();
 
 signals:
-    void sendRemoveColor(const QString colorID);
+    void sendRemoveColor(ColorPair *color);
 
 private:
     Ui::ThemeItemWidget *ui;
@@ -35,7 +35,7 @@ private slots:
     void on_trgButton_clicked();
     void on_srcRgb_textChanged();
     void on_trgRgb_textChanged();
-    void on_colorID_textChanged();
+    void on_colorName_textChanged();
 };
 
 #endif // THEMEITEMWIDGET_H

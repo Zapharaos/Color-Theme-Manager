@@ -26,7 +26,7 @@ private:
 private slots:
     void loadTheme(Theme *theme);
     void createColor();
-    void removeColorItem(const QString color_id);
+    void removeColorItem(ColorPair *color);
 };
 
 #endif // THEMEWIDGET_H

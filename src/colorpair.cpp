@@ -6,18 +6,27 @@
 
 ColorPair::ColorPair() {}
 
-ColorPair::ColorPair(const QString &id) {
-    this->m_id = id;
+ColorPair::ColorPair(const QString &name) {
+    this->m_id = QUuid::createUuid();
+    this->m_name = name;
 }
 
 ColorPair::ColorPair(const ColorPair &color) {
     this->m_id = color.m_id;
+    this->m_name = color.m_name;
     this->m_source = color.m_source;
     this->m_target = color.m_target;
 }
 
-ColorPair::ColorPair(const QString &id, const QColor &source, const QColor &target) {
+ColorPair::ColorPair(const QString &name, const QColor &source, const QColor &target) {
+    this->m_name = name;
+    this->m_source = source;
+    this->m_target = target;
+}
+
+ColorPair::ColorPair(const QUuid &id, const QString &name, const QColor &source, const QColor &target) {
     this->m_id = id;
+    this->m_name = name;
     this->m_source = source;
     this->m_target = target;
 }
@@ -53,11 +62,20 @@ QColor ColorPair::GetTarget() const
     return m_target;
 }
 
-void ColorPair::SetID(QString id)
+void ColorPair::SetName(QString name)
+{
+    this->m_name = name;
+}
+QString ColorPair::GetName() const
+{
+    return m_name;
+}
+
+void ColorPair::SetID(QUuid id)
 {
     this->m_id = id;
 }
-QString ColorPair::GetID() const
+QUuid ColorPair::GetID() const
 {
     return m_id;
 }
@@ -65,7 +83,7 @@ QString ColorPair::GetID() const
 
 bool CompareColorPair::operator()(const ColorPair &color1, const ColorPair &color2) const
 {
-    return color1.GetID().QString::compare(color2.GetID()) < 0; // Qt::CaseInsensitive
+    return color1.GetName().QString::compare(color2.GetName()) < 0; // Qt::CaseInsensitive
     // return color1.id() < color2.id();
 }
 

@@ -24,18 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->listWidget->setIconSize(QSize(35,35));
 
-    /*for(int i=0; i<100; i++)
-    {
-        auto widget = new MenuItemWidget(this);
-        widget->setText(QString("Theme %1").arg(i));
-
-        auto item = new QListWidgetItem();
-        item->setSizeHint(widget->sizeHint());
-
-        ui->listWidget->addItem(item);
-        ui->listWidget->setItemWidget(item, widget);
-    }*/
-
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme()));
 
     connect(ui->actionCollapse_Expand_menu, SIGNAL(triggered()), this, SLOT(toggleMenu()));
@@ -61,7 +49,6 @@ void MainWindow::createTheme()
 
     auto widget = new MenuItemWidget(this);
     widget->setTheme("New theme");
-
 
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());

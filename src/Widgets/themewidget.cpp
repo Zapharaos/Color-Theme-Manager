@@ -39,14 +39,15 @@ void ThemeWidget::createColor()
     ui->colorsList->setItemWidget(item, widget);
 }
 
-void ThemeWidget::removeColorItem(const QString color_id)
+void ThemeWidget::removeColorItem(ColorPair *color)
 {
     // Looking for the color's ID
     for (int i = 0; i < ui->colorsList->count(); i++) {
         QListWidgetItem* item = ui->colorsList->item(i);
         ThemeItemWidget* itemWidget = dynamic_cast<ThemeItemWidget*>(ui->colorsList->itemWidget(item));
         ColorPair *colorPair = itemWidget->getColor();
-        if (colorPair->GetID() == color_id){
+        if(colorPair->GetID() == color->GetID())
+        {
             delete item;
             break;
         }
