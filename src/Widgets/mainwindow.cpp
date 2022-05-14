@@ -100,14 +100,13 @@ int MainWindow::checkThemeChanges(Theme *theme)
         int res = popup.exec();
         switch(res)
         {
-            case QMessageBox::Cancel: //
+            case QMessageBox::Cancel:
                 break;
             case QMessageBox::Save:
                 // TODO : save theme
                 theme->setEdited(false);
                 break;
             case QMessageBox::Discard:
-                // TODO : back to previous state
                 theme->setEdited(false);
                 break;
         }

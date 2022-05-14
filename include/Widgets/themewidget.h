@@ -26,7 +26,6 @@ public:
 private:
     Ui::ThemeWidget *ui;
     Theme* m_theme;
-    Theme* m_baseTheme; // original version of m_theme, without changes
 
 private slots:
     // Theme

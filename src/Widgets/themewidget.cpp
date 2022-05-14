@@ -31,7 +31,6 @@ ThemeWidget::~ThemeWidget()
 void ThemeWidget::loadTheme(Theme *theme)
 {
     // Init theme
-    m_baseTheme = theme;
     m_theme = theme;
 
     ui->name->setVisible(true);
@@ -50,12 +49,6 @@ void ThemeWidget::clearTheme()
     ui->colorsList->clear();
     ui->name->clear();
     ui->name->setVisible(false);
-}
-
-// Discard changes -> going back to the origianl version (before changes)
-void ThemeWidget::discardChanges()
-{
-    loadTheme(m_baseTheme);
 }
 
 /*****************************************/
