@@ -116,7 +116,7 @@ void ColorWidget::on_srcButton_clicked()
     // TODO : signal/slot to parent back and forth to avoid the issue (maybe)
 
     // Get a selected color
-    QColor color = QColorDialog::getColor(ColorPair::toRGBA(m_color->GetSource()), this, "Pick source color");
+    QColor color = QColorDialog::getColor(m_color->GetSource(), this, "Pick source color");
 
     // Valid : Updating the colorpair & display
     if(color.isValid())
@@ -127,11 +127,7 @@ void ColorWidget::on_srcButton_clicked()
         ui->srcRgb->setStyleSheet(inputStyleDefault);
         m_color->SetSource(color);
         emit sendUpdateColor(true);
-        return;
     }
-
-    // Color is not valid : error
-    ui->srcRgb->setStyleSheet(inputStyleError);
 }
 
 // Target color edited : QColorDialog
@@ -141,7 +137,7 @@ void ColorWidget::on_trgButton_clicked()
     // TODO : signal/slot to parent back and forth to avoid the issue (maybe)
 
     // Get a selected color
-    QColor color = QColorDialog::getColor(ColorPair::toRGBA(m_color->GetTarget()), this, "Pick target color");
+    QColor color = QColorDialog::getColor(m_color->GetTarget(), this, "Pick target color");
 
     // Valid : Updating the colorpair & display
     if(color.isValid())
@@ -152,11 +148,7 @@ void ColorWidget::on_trgButton_clicked()
         ui->trgRgb->setStyleSheet(inputStyleDefault);
         m_color->SetTarget(color);
         emit sendUpdateColor(true);
-        return;
     }
-
-    // Color is not valid : error
-    ui->trgRgb->setStyleSheet(inputStyleError);
 }
 
 // Source color edited : Text
