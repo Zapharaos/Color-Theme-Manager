@@ -22,25 +22,28 @@ public:
     ~MainWindow();
 
     void displayTheme(Theme *theme);
+    int checkThemeChanges(Theme *theme);
+
+private:
+    Ui::MainWindow *ui;
+    Themes *m_themes;
 
 signals:
     void sendTheme();
     void sendTheme(Theme *theme);
     void sendCreateColor();
-    void sendUndoChanges();
-
-private:
-	Ui::MainWindow *ui;
-    Themes *m_themes;
+    void sendDiscardChanges();
 
 private slots:
+    // Self
     void createTheme();
-    int checkThemeChanges(Theme *theme);
-    void transmitCreateColor();
-    void removeMenuItem(const QUuid &id);
-    void saveAll();
     void toggleMenu();
     void on_toggleMenu_clicked();
+    void transmitCreateColor();
+    void saveAll();
+
+    // ThemeWidget
+    void removeMenuItem(const QUuid &id);
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };
 #endif // MAINWINDOW_H

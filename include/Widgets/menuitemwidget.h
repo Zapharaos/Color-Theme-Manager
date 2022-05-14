@@ -16,20 +16,19 @@ public:
     explicit MenuItemWidget(QWidget *parent = nullptr);
     ~MenuItemWidget();
 
-    void setTheme(Theme *theme);
     void setTheme(const QString &name);
+    void setTheme(Theme *theme);
     Theme* getTheme();
 
+private:
+    Ui::MenuItemWidget *ui;
+    Theme *m_theme;
 
 signals:
     void sendRemoveItem(const QUuid &id);
 
 private slots:
     void on_toolButton_clicked();
-
-private:
-    Ui::MenuItemWidget *ui;
-    Theme *m_theme;
 };
 
 #endif // CUSTOMWIDGET_H

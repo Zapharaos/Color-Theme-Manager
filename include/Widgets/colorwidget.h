@@ -21,23 +21,24 @@ public:
     void createColor();
     void setColor(ColorPair *colorPair);
     ColorPair* getColor();
-
-signals:
-    void sendRemoveColor(ColorPair *color);
-    void sendUpdateColor(bool);
+    void updateColorDisplay();
 
 private:
     Ui::ColorWidget *ui;
     ColorPair *m_color;
 
+signals:
+    void sendRemoveColor(ColorPair *color);
+    void sendUpdateColor(bool);
+
 private slots:
     void loadColor(ColorPair *color);
     void on_deleteButton_clicked();
+    void on_colorName_textChanged();
     void on_srcButton_clicked();
     void on_trgButton_clicked();
     void on_srcRgb_textChanged();
     void on_trgRgb_textChanged();
-    void on_colorName_textChanged();
 };
 
 #endif // COLORWIDGET_H
