@@ -31,7 +31,6 @@ private slots:
     // Theme
     void loadTheme(Theme *theme);
     void clearTheme();
-    void discardChanges();
     // Colors
     void displayColor(ColorPair *color);
     void createColor();

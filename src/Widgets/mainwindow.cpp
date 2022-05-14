@@ -52,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL(sendTheme()), ui->theme, SLOT(clearTheme())); // clear Theme
     connect(this, SIGNAL(sendTheme(Theme*)), ui->theme, SLOT(loadTheme(Theme*))); // load Theme
     connect(this, SIGNAL(sendCreateColor()), ui->theme, SLOT(createColor())); // create Color
-    connect(this, SIGNAL(sendDiscardChanges()), ui->theme, SLOT(discardChanges())); // discard changes Theme
 }
 
 MainWindow::~MainWindow()

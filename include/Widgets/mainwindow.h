@@ -32,7 +32,6 @@ signals:
     void sendTheme();
     void sendTheme(Theme *theme);
     void sendCreateColor();
-    void sendDiscardChanges();
 
 private slots:
     // Self
