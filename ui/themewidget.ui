@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Theme's name</string>
+      <string/>
      </property>
     </widget>
    </item>

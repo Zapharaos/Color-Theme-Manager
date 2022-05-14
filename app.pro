@@ -36,7 +36,7 @@ SOURCES += \
 	Themes.cpp \
 	Widgets/menuitemwidget.cpp \
 	Widgets/themewidget.cpp \
-	Widgets/themeitemwidget.cpp \
+	Widgets/colorwidget.cpp \
 	XMLReader.cpp \
 	colorpair.cpp
 
@@ -46,14 +46,14 @@ HEADERS += \
     Widgets/orientablepushbutton.h \
     Widgets/menuitemwidget.h \
     Widgets/themewidget.h \
-    Widgets/themeitemwidget.h \
+    Widgets/colorwidget.h \
     XMLReader.h \
     colorpair.h \
 	mainwindow.h
 
 FORMS += \
 	mainwindow.ui \
-	themeitemwidget.ui \
+	colorwidget.ui \
 	menuitemwidget.ui \
 	themewidget.ui
 

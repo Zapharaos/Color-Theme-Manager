@@ -1,24 +1,24 @@
-#include "themeitemwidget.h"
-#include "ui_themeitemwidget.h"
+#include "colorwidget.h"
+#include "ui_colorwidget.h"
 
 #include <QColorDialog>
 #include <QMessageBox>
 
-ThemeItemWidget::ThemeItemWidget(QWidget *parent) :
+ColorWidget::ColorWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ThemeItemWidget)
+    ui(new Ui::ColorWidget)
 {
     ui->setupUi(this);
 
     connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
 }
 
-ThemeItemWidget::~ThemeItemWidget()
+ColorWidget::~ColorWidget()
 {
     delete ui;
 }
 
-void ThemeItemWidget::setColor(ColorPair *color)
+void ColorWidget::setColor(ColorPair *color)
 {
     m_color = color;
 
@@ -30,17 +30,17 @@ void ThemeItemWidget::setColor(ColorPair *color)
     ui->trgRgb->setAlignment(Qt::AlignCenter);
 }
 
-ColorPair* ThemeItemWidget::getColor()
+ColorPair* ColorWidget::getColor()
 {
     return m_color;
 }
 
-void ThemeItemWidget::loadColor(ColorPair *color)
+void ColorWidget::loadColor(ColorPair *color)
 {
     setColor(color);
 }
 
-void ThemeItemWidget::on_deleteButton_clicked()
+void ColorWidget::on_deleteButton_clicked()
 {
     QMessageBox popup;
     popup.setWindowTitle("Confirm Deletion");
@@ -60,7 +60,7 @@ void ThemeItemWidget::on_deleteButton_clicked()
 }
 
 
-void ThemeItemWidget::on_srcButton_clicked()
+void ColorWidget::on_srcButton_clicked()
 {
     // generate issue : item widget layout is too small
     // TODO : signal/slot to parent back and forth to avoid the issue
@@ -77,7 +77,7 @@ void ThemeItemWidget::on_srcButton_clicked()
 }
 
 
-void ThemeItemWidget::on_trgButton_clicked()
+void ColorWidget::on_trgButton_clicked()
 {
     // generate issue : item widget layout is too small
     // TODO : signal/slot to parent back and forth to avoid the issue
@@ -93,7 +93,7 @@ void ThemeItemWidget::on_trgButton_clicked()
 }
 
 
-void ThemeItemWidget::on_srcRgb_textChanged()
+void ColorWidget::on_srcRgb_textChanged()
 {
     auto rgb = ui->srcRgb->toPlainText();
     QColor color = ColorPair::fromRGBA(rgb);
@@ -105,7 +105,7 @@ void ThemeItemWidget::on_srcRgb_textChanged()
 }
 
 
-void ThemeItemWidget::on_trgRgb_textChanged()
+void ColorWidget::on_trgRgb_textChanged()
 {
     auto rgb = ui->trgRgb->toPlainText();
     QColor color = ColorPair::fromRGBA(rgb);
@@ -117,7 +117,7 @@ void ThemeItemWidget::on_trgRgb_textChanged()
 }
 
 
-void ThemeItemWidget::on_colorName_textChanged()
+void ColorWidget::on_colorName_textChanged()
 {
     auto name = ui->colorName->toPlainText();
 

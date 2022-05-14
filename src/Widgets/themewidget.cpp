@@ -1,7 +1,7 @@
 #include "themewidget.h"
 #include "ui_themewidget.h"
 
-#include "themeitemwidget.h"
+#include "colorwidget.h"
 
 ThemeWidget::ThemeWidget(QWidget *parent) :
     QWidget(parent),
@@ -21,7 +21,7 @@ ThemeWidget::~ThemeWidget()
 void ThemeWidget::loadTheme(Theme *theme)
 {
     m_theme = theme;
-    ThemeItemWidget* temp = new ThemeItemWidget(this);
+    ColorWidget* temp = new ColorWidget(this);
     m_qsize = temp->sizeHint() + QSize(20,20);
     ui->name->setText(m_theme->getID().toString());
 
@@ -32,7 +32,7 @@ void ThemeWidget::loadTheme(Theme *theme)
 
 void ThemeWidget::displayColor(ColorPair *color)
 {
-    auto widget = new ThemeItemWidget(this);
+    auto widget = new ColorWidget(this);
     widget->setColor(color);
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
@@ -46,7 +46,7 @@ void ThemeWidget::createColor()
 {
     auto color = new ColorPair("New Color");
 
-    auto widget = new ThemeItemWidget(this);
+    auto widget = new ColorWidget(this);
     widget->setColor(color);
 
     auto item = new QListWidgetItem();
@@ -64,7 +64,7 @@ void ThemeWidget::removeColor(ColorPair *color)
     // Looking for the color's ID
     for (int i = 0; i < ui->colorsList->count(); i++) {
         QListWidgetItem* item = ui->colorsList->item(i);
-        ThemeItemWidget* itemWidget = dynamic_cast<ThemeItemWidget*>(ui->colorsList->itemWidget(item));
+        ColorWidget* itemWidget = dynamic_cast<ColorWidget*>(ui->colorsList->itemWidget(item));
         ColorPair *colorPair = itemWidget->getColor();
         if(colorPair->GetID() == color->GetID())
         {
