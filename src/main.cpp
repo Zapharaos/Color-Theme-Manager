@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 	MainWindow w;
     w.setWindowTitle("Themes Manager");
     w.setMinimumSize(800, 600);
+    w.setWindowState(Qt::WindowMaximized);
 	w.show();
 	return a.exec();
 }

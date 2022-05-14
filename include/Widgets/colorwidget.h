@@ -18,6 +18,11 @@ public:
 
     static const QSize qsize;
 
+    // StyleSheet
+    const QString inputStyleDefault = "border-color: grey; border-style: solid; border-width: 1px;";
+    const QString inputStyleError = "background-color: #EBC4C4; border-color: red; border-style: solid; border-width: 1px;";
+    const QString colorpickerStyleDefault = "background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;";
+
     void createColor();
     void setColor(ColorPair *colorPair);
     ColorPair* getColor();

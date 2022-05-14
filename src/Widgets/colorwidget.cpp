@@ -10,18 +10,6 @@ ColorWidget::ColorWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->colorName->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->colorName->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->colorName->setLineWrapMode(QTextEdit::NoWrap);
-
-    ui->srcRgb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->srcRgb->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->srcRgb->setLineWrapMode(QTextEdit::NoWrap);
-
-    ui->trgRgb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->trgRgb->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->trgRgb->setLineWrapMode(QTextEdit::NoWrap);
-
     // ThemeWidget Signals :
     connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
     connect(this, SIGNAL(sendUpdateColor(bool)), parent, SLOT(updateColor(bool)));
@@ -106,17 +94,17 @@ void ColorWidget::on_deleteButton_clicked()
 void ColorWidget::on_colorName_textChanged()
 {
     // Get name from widget
-    auto name = ui->colorName->toPlainText();
+    auto name = ui->colorName->text();
 
     // Name cannot be empty
     if(name.isEmpty())
     {
-        ui->colorName->setStyleSheet(QString("background-color: #EBC4C4; border-style: solid; border-width: 1px; border-color: red;"));
+        ui->colorName->setStyleSheet(inputStyleError);
         return;
     }
 
     // Updating the colorpair
-    ui->colorName->setStyleSheet("");
+    ui->colorName->setStyleSheet(inputStyleDefault);
     m_color->SetName(name);
     emit sendUpdateColor(true);
 }
@@ -133,17 +121,17 @@ void ColorWidget::on_srcButton_clicked()
     // Valid : Updating the colorpair & display
     if(color.isValid())
     {
-        ui->srcButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        ui->srcButton->setStyleSheet(QString(colorpickerStyleDefault).arg(color.name()));
         ui->srcRgb->setText(ColorPair::toRGBA(color));
         ui->srcRgb->setAlignment(Qt::AlignCenter);
-        ui->srcRgb->setStyleSheet("");
+        ui->srcRgb->setStyleSheet(inputStyleDefault);
         m_color->SetSource(color);
         emit sendUpdateColor(true);
         return;
     }
 
     // Color is not valid : error
-    ui->srcRgb->setStyleSheet(QString("background-color: #EBC4C4; border-style: solid; border-width: 1px; border-color: red;"));
+    ui->srcRgb->setStyleSheet(inputStyleError);
 }
 
 // Target color edited : QColorDialog
@@ -158,57 +146,57 @@ void ColorWidget::on_trgButton_clicked()
     // Valid : Updating the colorpair & display
     if(color.isValid())
     {
-        ui->trgButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
+        ui->trgButton->setStyleSheet(QString(colorpickerStyleDefault).arg(color.name()));
         ui->trgRgb->setText(ColorPair::toRGBA(color));
         ui->trgRgb->setAlignment(Qt::AlignCenter);
-        ui->trgRgb->setStyleSheet("");
+        ui->trgRgb->setStyleSheet(inputStyleDefault);
         m_color->SetTarget(color);
         emit sendUpdateColor(true);
         return;
     }
 
     // Color is not valid : error
-    ui->trgRgb->setStyleSheet(QString("background-color: #EBC4C4; border-style: solid; border-width: 1px; border-color: red;"));
+    ui->trgRgb->setStyleSheet(inputStyleError);
 }
 
 // Source color edited : Text
 void ColorWidget::on_srcRgb_textChanged()
 {
     // Get color from widget
-    auto rgb = ui->srcRgb->toPlainText();
+    auto rgb = ui->srcRgb->text();
     QColor color = ColorPair::fromRGBA(rgb);
 
     // Valid : Updating the colorpair & display
     if(color.isValid())
     {
-        ui->srcButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
-        ui->srcRgb->setStyleSheet("");
+        ui->srcButton->setStyleSheet(QString(colorpickerStyleDefault).arg(color.name()));
+        ui->srcRgb->setStyleSheet(inputStyleDefault);
         m_color->SetSource(color);
         emit sendUpdateColor(true);
         return;
     }
 
     // Color is not valid : error
-    ui->srcRgb->setStyleSheet(QString("background-color: #EBC4C4; border-style: solid; border-width: 1px; border-color: red;"));
+    ui->srcRgb->setStyleSheet(inputStyleError);
 }
 
 // Target color edited : Text
 void ColorWidget::on_trgRgb_textChanged()
 {
     // Get color from widget
-    auto rgb = ui->trgRgb->toPlainText();
+    auto rgb = ui->trgRgb->text();
     QColor color = ColorPair::fromRGBA(rgb);
 
     // Valid : Updating the colorpair & display
     if(color.isValid())
     {
-        ui->trgButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
-        ui->trgRgb->setStyleSheet("");
+        ui->trgButton->setStyleSheet(QString(colorpickerStyleDefault).arg(color.name()));
+        ui->trgRgb->setStyleSheet(inputStyleDefault);
         m_color->SetTarget(color);
         emit sendUpdateColor(true);
         return;
     }
 
     // Color is not valid : error
-    ui->trgRgb->setStyleSheet(QString("background-color: #EBC4C4; border-style: solid; border-width: 1px; border-color: red;"));
+    ui->trgRgb->setStyleSheet(inputStyleError);
 }
