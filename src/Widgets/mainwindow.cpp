@@ -30,9 +30,15 @@ MainWindow::MainWindow(QWidget *parent)
         ui->listWidget->addItem(defaultItem);
     }
     ui->listWidget->setIconSize(QSize(35,35));
+    ui->listWidget->setDragEnabled(true);
+    ui->listWidget->setAcceptDrops(true);
+    ui->listWidget->setDropIndicatorShown(true);
+    ui->listWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
 
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme()));
     connect(ui->actionCollapse_Expand_menu, SIGNAL(triggered()), this, SLOT(toggleMenu()));
+    connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAll()));
 
     connect(this, SIGNAL(sendTheme(Theme *)), ui->theme, SLOT(loadTheme(Theme *)));
     connect(this, SIGNAL(sendTheme()), ui->theme, SLOT(clearTheme()));
@@ -180,6 +186,16 @@ void MainWindow::removeMenuItem(const QUuid &id)
         auto defaultItem = new QListWidgetItem("No themes yet !");
         defaultItem->setFlags(defaultItem->flags() & ~Qt::ItemIsEnabled);
         ui->listWidget->addItem(defaultItem);
+    }
+}
+
+// Event : Save all
+
+void MainWindow::saveAll()
+{
+    for(Theme *theme : m_themes->getThemes())
+    {
+        // TODO : save theme
     }
 }
 

@@ -87,10 +87,6 @@
      <string>Theme</string>
     </property>
     <addaction name="actionSave"/>
-    <addaction name="actionCreate_new_theme"/>
-    <addaction name="actionImport_new_theme"/>
-    <addaction name="actionImport_from_link"/>
-    <addaction name="actionCollapse_Expand_menu"/>
     <addaction name="actionCreate_new_color"/>
    </widget>
    <widget class="QMenu" name="menuFile">
@@ -108,6 +104,15 @@
      <string>Help</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuThemes">
+    <property name="title">
+     <string>Themes</string>
+    </property>
+    <addaction name="actionSave_all"/>
+    <addaction name="actionCreate_new_theme"/>
+    <addaction name="actionCollapse_Expand_menu"/>
+   </widget>
+   <addaction name="menuThemes"/>
    <addaction name="menuTheme"/>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -145,38 +150,39 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionCreate_new_theme">
-   <property name="text">
-    <string>Create new theme</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+N</string>
-   </property>
-  </action>
-  <action name="actionImport_new_theme">
-   <property name="text">
-    <string>Import new theme</string>
-   </property>
-  </action>
-  <action name="actionImport_from_link">
-   <property name="text">
-    <string>Import from link</string>
-   </property>
-  </action>
-  <action name="actionCollapse_Expand_menu">
-   <property name="text">
-    <string>Collapse/Expand menu</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+M</string>
-   </property>
-  </action>
   <action name="actionCreate_new_color">
    <property name="text">
     <string>Create new color</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionCreate_new_theme">
+   <property name="text">
+    <string>Create new theme</string>
+   </property>
+   <property name="toolTip">
+    <string>Create new theme</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="actionCollapse_Expand_menu">
+   <property name="text">
+    <string>Toggle menu</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionSave_all">
+   <property name="text">
+    <string>Save all</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>

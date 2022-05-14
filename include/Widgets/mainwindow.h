@@ -38,6 +38,7 @@ private slots:
     int checkThemeChanges(Theme *theme);
     void transmitCreateColor();
     void removeMenuItem(const QUuid &id);
+    void saveAll();
     void toggleMenu();
     void on_toggleMenu_clicked();
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
