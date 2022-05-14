@@ -7,6 +7,9 @@ MenuItemWidget::MenuItemWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Set close button icon
+    ui->toolButton->setIcon(QIcon("../color-theme-manager/resource/icons/feather/x.svg"));
+
     // MainWindow Signals :
     connect(this, SIGNAL(sendRemoveItem(const QUuid &)), parent, SLOT(removeMenuItem(const QUuid &)));
 }

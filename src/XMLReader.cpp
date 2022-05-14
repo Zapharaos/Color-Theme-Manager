@@ -25,7 +25,9 @@ int XMLReader::read(const QString &path) {
     while(!n.isNull()) {
         QDomElement e = n.toElement(); // try to convert the node to an element.
         if(!e.isNull()) {
-            m_set.insert(ColorPair(e.attribute("id"), e.attribute("source"), e.attribute("target")));
+            auto color = ColorPair(e.attribute("id"), e.attribute("source"), e.attribute("target"));
+            m_set.insert(color);
+            // qDebug() << color.GetID() << color.GetName() << ColorPair::toRGBA(color.GetSource()) << ColorPair::toRGBA(color.GetTarget());
         }
         n = n.nextSibling();
     }

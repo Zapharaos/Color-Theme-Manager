@@ -10,6 +10,9 @@ ColorWidget::ColorWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Set delete button icon
+    ui->deleteButton->setIcon(QIcon("../color-theme-manager/resource/icons/feather/trash-2.svg"));
+
     // ThemeWidget Signals :
     connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
     connect(this, SIGNAL(sendUpdateColor(bool)), parent, SLOT(updateColor(bool)));
@@ -74,6 +77,7 @@ void ColorWidget::loadColor(ColorPair *color)
 void ColorWidget::on_deleteButton_clicked()
 {
     QMessageBox popup;
+    popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
     popup.setWindowTitle("Confirm Deletion");
     popup.setIcon(QMessageBox::Question);
     popup.setText(QString("Delete the color \"%1\"?").arg(m_color->GetName()));
@@ -116,7 +120,7 @@ void ColorWidget::on_srcButton_clicked()
     // TODO : signal/slot to parent back and forth to avoid the issue (maybe)
 
     // Get a selected color
-    QColor color = QColorDialog::getColor(m_color->GetSource(), this, "Pick source color");
+    QColor color = QColorDialog::getColor(m_color->GetSource(), this, "Pick source color", QColorDialog::ShowAlphaChannel);
 
     // Valid : Updating the colorpair & display
     if(color.isValid())
@@ -137,7 +141,7 @@ void ColorWidget::on_trgButton_clicked()
     // TODO : signal/slot to parent back and forth to avoid the issue (maybe)
 
     // Get a selected color
-    QColor color = QColorDialog::getColor(m_color->GetTarget(), this, "Pick target color");
+    QColor color = QColorDialog::getColor(m_color->GetTarget(), this, "Pick source color", QColorDialog::ShowAlphaChannel);
 
     // Valid : Updating the colorpair & display
     if(color.isValid())

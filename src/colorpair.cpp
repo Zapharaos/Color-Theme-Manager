@@ -19,6 +19,7 @@ ColorPair::ColorPair(const ColorPair &color) {
 }
 
 ColorPair::ColorPair(const QString &name, const QColor &source, const QColor &target) {
+    this->m_id = QUuid::createUuid();
     this->m_name = name;
     this->m_source = source;
     this->m_target = target;

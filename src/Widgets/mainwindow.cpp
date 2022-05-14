@@ -13,8 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Collapse/Expand pushButton : vertical
-    ui->toggleMenu->setOrientation(OrientablePushButton::VerticalBottomToTop);
+    // Collapse/Expand pushButton :
+    ui->toggleMenu->setOrientation(OrientablePushButton::VerticalBottomToTop); // vertical
+    ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-up.svg"));
 
     // Set item's icon size
     ui->listWidget->setIconSize(QSize(35,35));
@@ -77,7 +78,7 @@ void MainWindow::displayTheme(Theme *theme)
     // New list item
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
-    item->setIcon(QIcon("../color-theme-manager/images/easteregg.png"));
+    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
 
     // Adding item + widget to list
     ui->listWidget->addItem(item);
@@ -91,10 +92,12 @@ int MainWindow::checkThemeChanges(Theme *theme)
     if(theme->getEdited())
     {
         QMessageBox popup;
+        popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
         popup.setWindowTitle("Saving");
         popup.setIcon(QMessageBox::Question);
         popup.setText(QString("Save the theme \"%1\"?").arg(theme->getName()));
         popup.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        popup.setButtonText(QMessageBox::Discard, QString("Don't save"));
 
         int res = popup.exec();
         switch(res)
@@ -134,7 +137,7 @@ void MainWindow::createTheme()
     // New list item
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
-    item->setIcon(QIcon("../color-theme-manager/images/easteregg.png"));
+    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
 
     // Adding item + widget to list
     ui->listWidget->addItem(item);
@@ -149,11 +152,13 @@ void MainWindow::toggleMenu()
 {
     if(ui->toggleMenu->text() == "Collapse")
     {
+        ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-down.svg"));
         ui->toggleMenu->setText("Expand");
         ui->listWidget->setVisible(false);
     }
     else
     {
+        ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-up.svg"));
         ui->toggleMenu->setText("Collapse");
         ui->listWidget->setVisible(true);
     }
