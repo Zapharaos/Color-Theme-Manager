@@ -21,7 +21,7 @@ ColorWidget::~ColorWidget()
 
 void ColorWidget::createColor()
 {
-    m_color = new ColorPair("New Theme");
+    m_color = new ColorPair("New Color");
 
     ui->colorName->setText(m_color->GetName());
     ui->colorName->setAlignment(Qt::AlignCenter);
@@ -41,8 +41,6 @@ void ColorWidget::setColor(ColorPair *color)
     ui->srcRgb->setAlignment(Qt::AlignCenter);
     ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
     ui->trgRgb->setAlignment(Qt::AlignCenter);
-
-    emit sendUpdateColor(false);
 }
 
 ColorPair* ColorWidget::getColor()

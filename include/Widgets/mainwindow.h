@@ -35,7 +35,7 @@ private:
 
 private slots:
     void createTheme();
-    void checkThemeChanges(QListWidgetItem *widgetItem);
+    int checkThemeChanges(Theme *theme);
     void transmitCreateColor();
     void removeMenuItem(const QUuid &id);
     void toggleMenu();

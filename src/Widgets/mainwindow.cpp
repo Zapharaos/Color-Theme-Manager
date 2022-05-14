@@ -64,30 +64,31 @@ void MainWindow::displayTheme(Theme *theme)
     ui->listWidget->setItemWidget(item, widget);
 }
 
-void MainWindow::checkThemeChanges(QListWidgetItem *widgetItem)
+int MainWindow::checkThemeChanges(Theme *theme)
 {
-    auto item = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(widgetItem));
-    if(item->getTheme()->getEdited())
+    if(theme->getEdited())
     {
         QMessageBox popup;
         popup.setWindowTitle("Saving");
         popup.setIcon(QMessageBox::Question);
-        popup.setText(QString("Save the theme \"%1\"?").arg(item->getTheme()->getName()));
+        popup.setText(QString("Save the theme \"%1\"?").arg(theme->getName()));
         popup.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
-        switch(popup.exec())
+        int res = popup.exec();
+        switch(res)
         {
             case QMessageBox::Cancel:
-                return;
+                break;
             case QMessageBox::Save:
                 // TODO : save theme
-                item->getTheme()->setEdited(false);
+                theme->setEdited(false);
                 break;
             case QMessageBox::Discard:
                 // TODO : back to previous state
-                item->getTheme()->setEdited(false);
+                theme->setEdited(false);
                 break;
         }
+        return res;
     }
 }
 
@@ -109,13 +110,7 @@ void MainWindow::createTheme()
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
 
-    if(ui->listWidget->count() == 1)
-        ui->listWidget->setCurrentItem(item);
-    else
-    {
-        checkThemeChanges(ui->listWidget->currentItem());
-        ui->listWidget->setCurrentItem(item);
-    }
+    ui->listWidget->setCurrentItem(item);
 }
 
 // Event : Switch current theme
@@ -127,9 +122,6 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
         emit sendTheme();
         return;
     }
-
-    if(previous != nullptr)
-        checkThemeChanges(previous);
 
     auto currentItem = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(current));
     emit sendTheme(currentItem->getTheme());
@@ -175,7 +167,9 @@ void MainWindow::removeMenuItem(const QUuid &id)
         MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
         Theme *theme = itemWidget->getTheme();
         if (theme->getID() == id){
-            delete item;
+            auto res = checkThemeChanges(theme);
+            if(res != QMessageBox::Cancel)
+                delete item;
             break;
         }
     }
