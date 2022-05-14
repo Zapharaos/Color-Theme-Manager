@@ -141,8 +141,19 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionSave_all"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionCreate_new_theme"/>
+   <addaction name="actionCreate_new_color"/>
+   <addaction name="separator"/>
+   <addaction name="actionCollapse_Expand_menu"/>
   </widget>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/save.svg</normaloff>:/res/resource/icons/feather/save.svg</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -151,6 +162,10 @@
    </property>
   </action>
   <action name="actionCreate_new_color">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/plus-circle.svg</normaloff>:/res/resource/icons/feather/plus-circle.svg</iconset>
+   </property>
    <property name="text">
     <string>Create new color</string>
    </property>
@@ -159,6 +174,10 @@
    </property>
   </action>
   <action name="actionCreate_new_theme">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/file-plus.svg</normaloff>:/res/resource/icons/feather/file-plus.svg</iconset>
+   </property>
    <property name="text">
     <string>Create new theme</string>
    </property>
@@ -170,6 +189,10 @@
    </property>
   </action>
   <action name="actionCollapse_Expand_menu">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/arrow-down-left.svg</normaloff>:/res/resource/icons/feather/arrow-down-left.svg</iconset>
+   </property>
    <property name="text">
     <string>Toggle menu</string>
    </property>
@@ -178,6 +201,10 @@
    </property>
   </action>
   <action name="actionSave_all">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/save.svg</normaloff>:/res/resource/icons/feather/save.svg</iconset>
+   </property>
    <property name="text">
     <string>Save all</string>
    </property>
@@ -199,6 +226,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
