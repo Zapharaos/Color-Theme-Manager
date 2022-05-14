@@ -18,7 +18,7 @@ public:
 
     static const QSize qsize;
 
-    void setColor(const ColorPair &colorPair);
+    void setColor(ColorPair *colorPair);
     ColorPair* getColor();
 
 signals:

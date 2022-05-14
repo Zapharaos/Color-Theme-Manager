@@ -25,8 +25,9 @@ private:
 
 private slots:
     void loadTheme(Theme *theme);
+    void displayColor(ColorPair *color);
     void createColor();
-    void removeColorItem(ColorPair *color);
+    void removeColor(ColorPair *color);
 };
 
 #endif // THEMEWIDGET_H

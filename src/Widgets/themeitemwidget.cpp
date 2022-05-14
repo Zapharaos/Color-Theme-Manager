@@ -10,16 +10,7 @@ ThemeItemWidget::ThemeItemWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_color = new ColorPair("New Color");
-
-    ui->colorName->setText(m_color->GetName());
-    ui->colorName->setAlignment(Qt::AlignCenter);
-    ui->srcRgb->setText(ColorPair::toRGBA(m_color->GetSource()));
-    ui->srcRgb->setAlignment(Qt::AlignCenter);
-    ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
-    ui->trgRgb->setAlignment(Qt::AlignCenter);
-
-    connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColorItem(ColorPair *)));
+    connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
 }
 
 ThemeItemWidget::~ThemeItemWidget()
@@ -27,10 +18,16 @@ ThemeItemWidget::~ThemeItemWidget()
     delete ui;
 }
 
-void ThemeItemWidget::setColor(const ColorPair &colorPair)
+void ThemeItemWidget::setColor(ColorPair *color)
 {
-    m_color = new ColorPair(colorPair);
-    // TO DO : set color elements
+    m_color = color;
+
+    ui->colorName->setText(m_color->GetName());
+    ui->colorName->setAlignment(Qt::AlignCenter);
+    ui->srcRgb->setText(ColorPair::toRGBA(m_color->GetSource()));
+    ui->srcRgb->setAlignment(Qt::AlignCenter);
+    ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
+    ui->trgRgb->setAlignment(Qt::AlignCenter);
 }
 
 ColorPair* ThemeItemWidget::getColor()
@@ -40,11 +37,7 @@ ColorPair* ThemeItemWidget::getColor()
 
 void ThemeItemWidget::loadColor(ColorPair *color)
 {
-    m_color = color;
-    ui->colorName->setText(m_color->GetName());
-    ui->srcRgb->setText(ColorPair::toRGBA(m_color->GetSource()));
-    ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
-    // chercher theme dans fichier load
+    setColor(color);
 }
 
 void ThemeItemWidget::on_deleteButton_clicked()

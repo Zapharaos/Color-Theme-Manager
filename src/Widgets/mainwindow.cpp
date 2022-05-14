@@ -72,6 +72,8 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 
 void MainWindow::transmitCreateColor()
 {
+    if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
+        createTheme();
     emit sendCreateColor();
 }
 

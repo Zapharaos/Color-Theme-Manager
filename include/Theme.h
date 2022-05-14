@@ -2,6 +2,7 @@
 #define THEME_H
 
 #include <set>
+#include <QSet>
 #include <QUuid>
 #include <QString>
 #include <fstream>
@@ -12,19 +13,23 @@ using namespace std;
 #include "colorpair.h"
 #endif //COLOR_THEME_MANAGER_COLORPAIR_H
 
+QT_BEGIN_NAMESPACE
+namespace Ui { class MenuItemWidget; }
+QT_END_NAMESPACE
+
 class Theme {
 
-    using Set = std::set<ColorPair>;
+    using Set = std::set<ColorPair*>;
 
     private:
     QUuid m_id;
     QString m_name;
-    Set m_colorPairs;
+    QSet<ColorPair*> *m_colorPairs;
 
     public:
     Theme(); //constructeur vide
     Theme(const Theme &theme); //con. par copie
-    Theme(const QUuid &id, const QString &name, const Set &colorPairs);
+    Theme(const QUuid &id, const QString &name, QSet<ColorPair*> *colorPairs);
     Theme(const QString &name); //con. initialisant uniquement le nom
 
     void setID(const QUuid &id);
@@ -32,6 +37,8 @@ class Theme {
 
     void setName(const QString &name);
     QString getName();
+
+    QSet<ColorPair*> *getColorpairs();
 
     int ApplyColorPair(string filename, ColorPair color);
 };

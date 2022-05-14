@@ -11,6 +11,7 @@ Theme::Theme(const QString &name)
 {
     this->m_id = QUuid::createUuid();
     this->m_name = name;
+    this->m_colorPairs = new QSet<ColorPair*>();
 }
 
 Theme::Theme(const Theme &theme)
@@ -20,7 +21,7 @@ Theme::Theme(const Theme &theme)
     this->m_colorPairs = theme.m_colorPairs;
 }
 
-Theme::Theme(const QUuid &id, const QString &name, const Set &colorPairs)
+Theme::Theme(const QUuid &id, const QString &name, QSet<ColorPair*> *colorPairs)
 {
     this->m_id = id;
     this->m_name = name;
@@ -41,6 +42,11 @@ void Theme::setName(const QString &name) {
 
 QString Theme::getName() {
     return m_name;
+}
+
+QSet<ColorPair*> *Theme::getColorpairs()
+{
+    return m_colorPairs;
 }
 
 void ReplaceAll(string &line, string source, string target)
