@@ -18,11 +18,13 @@ public:
 
     static const QSize qsize;
 
+    void createColor();
     void setColor(ColorPair *colorPair);
     ColorPair* getColor();
 
 signals:
     void sendRemoveColor(ColorPair *color);
+    void sendUpdateColor(bool);
 
 private:
     Ui::ColorWidget *ui;

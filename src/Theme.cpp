@@ -49,6 +49,14 @@ QSet<ColorPair*> *Theme::getColorpairs()
     return m_colorPairs;
 }
 
+void Theme::setEdited(const bool &edited) {
+    this->m_edited = edited;
+}
+
+bool Theme::getEdited() {
+    return m_edited;
+}
+
 void ReplaceAll(string &line, string source, string target)
 {
     size_t pos = line.find(source);

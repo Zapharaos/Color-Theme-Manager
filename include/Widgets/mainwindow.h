@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "Theme.h"
+#include "Themes.h"
 
 #include <QMainWindow>
 #include <QVBoxLayout>
@@ -20,15 +21,21 @@ public:
 	MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void displayTheme(Theme *theme);
+
 signals:
+    void sendTheme();
     void sendTheme(Theme *theme);
     void sendCreateColor();
+    void sendUndoChanges();
 
 private:
 	Ui::MainWindow *ui;
+    Themes *m_themes;
 
 private slots:
     void createTheme();
+    void checkThemeChanges(QListWidgetItem *widgetItem);
     void transmitCreateColor();
     void removeMenuItem(const QUuid &id);
     void toggleMenu();

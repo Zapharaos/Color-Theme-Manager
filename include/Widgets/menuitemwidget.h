@@ -16,6 +16,7 @@ public:
     explicit MenuItemWidget(QWidget *parent = nullptr);
     ~MenuItemWidget();
 
+    void setTheme(Theme *theme);
     void setTheme(const QString &name);
     Theme* getTheme();
 

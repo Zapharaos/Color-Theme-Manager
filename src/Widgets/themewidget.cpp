@@ -8,6 +8,7 @@ ThemeWidget::ThemeWidget(QWidget *parent) :
     ui(new Ui::ThemeWidget)
 {
     ui->setupUi(this);
+    ui->name->setVisible(false);
     ui->colorsList->setStyleSheet( "QListWidget::item { background: #e5e5e5; border: 1px solid black; border-radius: 3px;}" );
 
     ui->colorsList->setGridSize(m_qsize);
@@ -18,16 +19,30 @@ ThemeWidget::~ThemeWidget()
     delete ui;
 }
 
+void ThemeWidget::clearTheme()
+{
+    ui->colorsList->clear();
+    ui->name->clear();
+    ui->name->setVisible(false);
+}
+
 void ThemeWidget::loadTheme(Theme *theme)
 {
+    m_baseTheme = theme;
     m_theme = theme;
     ColorWidget* temp = new ColorWidget(this);
     m_qsize = temp->sizeHint() + QSize(20,20);
+    ui->name->setVisible(true);
     ui->name->setText(m_theme->getID().toString());
 
     ui->colorsList->clear();
     for(ColorPair *color : *(m_theme->getColorpairs()))
         displayColor(color);
+}
+
+void ThemeWidget::undoChanges()
+{
+    loadTheme(m_baseTheme);
 }
 
 void ThemeWidget::displayColor(ColorPair *color)
@@ -44,10 +59,8 @@ void ThemeWidget::displayColor(ColorPair *color)
 
 void ThemeWidget::createColor()
 {
-    auto color = new ColorPair("New Color");
-
     auto widget = new ColorWidget(this);
-    widget->setColor(color);
+    widget->createColor();
 
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
@@ -56,7 +69,8 @@ void ThemeWidget::createColor()
     ui->colorsList->addItem(item);
     ui->colorsList->setItemWidget(item, widget);
 
-    m_theme->getColorpairs()->insert(color);
+    m_theme->getColorpairs()->insert(widget->getColor());
+    m_theme->setEdited(true);
 }
 
 void ThemeWidget::removeColor(ColorPair *color)
@@ -70,7 +84,14 @@ void ThemeWidget::removeColor(ColorPair *color)
         {
             m_theme->getColorpairs()->remove(color);
             delete item;
+            m_theme->setEdited(true);
             break;
         }
     }
 }
+
+void ThemeWidget::updateColor(bool edited)
+{
+    m_theme->setEdited(edited);
+}
+

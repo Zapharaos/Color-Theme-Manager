@@ -21,13 +21,17 @@ public:
 private:
     Ui::ThemeWidget *ui;
     Theme* m_theme;
+    Theme* m_baseTheme;
     QSize m_qsize;
 
 private slots:
+    void clearTheme();
     void loadTheme(Theme *theme);
+    void undoChanges();
     void displayColor(ColorPair *color);
     void createColor();
     void removeColor(ColorPair *color);
+    void updateColor(bool edited);
 };
 
 #endif // THEMEWIDGET_H

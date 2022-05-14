@@ -11,11 +11,24 @@ ColorWidget::ColorWidget(QWidget *parent) :
     ui->setupUi(this);
 
     connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
+    connect(this, SIGNAL(sendUpdateColor(bool)), parent, SLOT(updateColor(bool)));
 }
 
 ColorWidget::~ColorWidget()
 {
     delete ui;
+}
+
+void ColorWidget::createColor()
+{
+    m_color = new ColorPair("New Theme");
+
+    ui->colorName->setText(m_color->GetName());
+    ui->colorName->setAlignment(Qt::AlignCenter);
+    ui->srcRgb->setText(ColorPair::toRGBA(m_color->GetSource()));
+    ui->srcRgb->setAlignment(Qt::AlignCenter);
+    ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
+    ui->trgRgb->setAlignment(Qt::AlignCenter);
 }
 
 void ColorWidget::setColor(ColorPair *color)
@@ -28,6 +41,8 @@ void ColorWidget::setColor(ColorPair *color)
     ui->srcRgb->setAlignment(Qt::AlignCenter);
     ui->trgRgb->setText(ColorPair::toRGBA(m_color->GetTarget()));
     ui->trgRgb->setAlignment(Qt::AlignCenter);
+
+    emit sendUpdateColor(false);
 }
 
 ColorPair* ColorWidget::getColor()
@@ -72,7 +87,7 @@ void ColorWidget::on_srcButton_clicked()
         ui->srcRgb->setText(ColorPair::toRGBA(color));
         ui->srcRgb->setAlignment(Qt::AlignCenter);
         m_color->SetSource(color);
-
+        emit sendUpdateColor(true);
     }
 }
 
@@ -89,6 +104,7 @@ void ColorWidget::on_trgButton_clicked()
         ui->trgRgb->setText(ColorPair::toRGBA(color));
         ui->trgRgb->setAlignment(Qt::AlignCenter);
         m_color->SetTarget(color);
+        emit sendUpdateColor(true);
     }
 }
 
@@ -101,6 +117,7 @@ void ColorWidget::on_srcRgb_textChanged()
     {
         ui->srcButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
         m_color->SetSource(color);
+        emit sendUpdateColor(true);
     }
 }
 
@@ -113,6 +130,7 @@ void ColorWidget::on_trgRgb_textChanged()
     {
         ui->trgButton->setStyleSheet(QString("background-color: %1; border-style: solid; border-width: 1px; border-color: black; padding: 10px;").arg(color.name()));
         m_color->SetTarget(color);
+        emit sendUpdateColor(true);
     }
 }
 
@@ -125,5 +143,6 @@ void ColorWidget::on_colorName_textChanged()
         return;
 
     m_color->SetName(name);
+    emit sendUpdateColor(true);
 }
 

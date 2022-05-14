@@ -11,9 +11,14 @@ Themes::Themes(const Themes &themes)
     this->m_themes = themes.m_themes;
 }
 
-Themes::Themes(const Set &themes)
+Themes::Themes(QSet<Theme*> themes)
 {
     this->m_themes = themes;
+}
+
+QSet<Theme*> Themes::getThemes()
+{
+    return m_themes;
 }
 
 int Themes::StoreInFile()

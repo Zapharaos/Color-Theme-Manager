@@ -14,6 +14,12 @@ MenuItemWidget::~MenuItemWidget()
     delete ui;
 }
 
+void MenuItemWidget::setTheme(Theme *theme)
+{
+    m_theme = theme;
+    ui->label->setText(m_theme->getName());
+}
+
 void MenuItemWidget::setTheme(const QString &name)
 {
     m_theme = new Theme(name);
