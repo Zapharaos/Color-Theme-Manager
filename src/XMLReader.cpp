@@ -6,6 +6,11 @@ XMLReader::XMLReader(XMLReader::Set &set) {
     this->m_set = set;
 }
 
+XMLReader::Set XMLReader::getSet()
+{
+    return m_set;
+}
+
 int XMLReader::read(const QString &path) {
 
     QFile file(path);
@@ -27,7 +32,6 @@ int XMLReader::read(const QString &path) {
         if(!e.isNull()) {
             auto color = ColorPair(e.attribute("id"), e.attribute("source"), e.attribute("target"));
             m_set.insert(color);
-            // qDebug() << color.GetID() << color.GetName() << ColorPair::toRGBA(color.GetSource()) << ColorPair::toRGBA(color.GetTarget());
         }
         n = n.nextSibling();
     }

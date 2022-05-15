@@ -3,6 +3,7 @@
 
 #include "Theme.h"
 #include "Themes.h"
+#include "XMLReader.h"
 
 #include <QMainWindow>
 #include <QVBoxLayout>
@@ -36,10 +37,12 @@ signals:
 private slots:
     // Self
     void createTheme();
+    void createTheme(Theme *theme);
     void toggleMenu();
     void on_toggleMenu_clicked();
     void transmitCreateColor();
     void saveAll();
+    void importTheme();
 
     // ThemeWidget
     void removeMenuItem(const QUuid &id);

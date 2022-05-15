@@ -4,6 +4,7 @@
 #include "menuitemwidget.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 #include <QIcon>
 #include <QPixmap>
 
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme())); // create Theme
     connect(ui->actionCreate_new_color, SIGNAL(triggered()), this, SLOT(transmitCreateColor())); // create Color
     connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAll())); // save Themes
+    connect(ui->actionImport_theme, SIGNAL(triggered()), this, SLOT(importTheme())); // import Themes
 
     // ThemeWidget Signals :
     connect(this, SIGNAL(sendTheme()), ui->theme, SLOT(clearTheme())); // clear Theme
@@ -147,6 +149,29 @@ void MainWindow::createTheme()
     ui->listWidget->setCurrentItem(item);
 }
 
+void MainWindow::createTheme(Theme* theme)
+{
+    // Check if head is default and removes it
+    if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
+        ui->listWidget->removeItemWidget(ui->listWidget->takeItem(0));
+
+    // New list item widget
+    auto widget = new MenuItemWidget(this);
+    widget->setTheme(theme);
+
+    // New list item
+    auto item = new QListWidgetItem();
+    item->setSizeHint(widget->sizeHint());
+    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
+
+    // Adding item + widget to list
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, widget);
+
+    // Sets the current item
+    ui->listWidget->setCurrentItem(item);
+}
+
 // Event : Collapse/Expand Menu (Ctrl+M)
 void MainWindow::toggleMenu()
 {
@@ -186,6 +211,41 @@ void MainWindow::saveAll()
     {
         // TODO : save theme
     }
+}
+
+// Event : Import theme (Ctrl+I)
+void MainWindow::importTheme()
+{
+    // Init dialog
+    QFileDialog dialog(this);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setNameFilter("(*.xml)");
+    QStringList fileNames;
+
+    // Launch dialog
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+    // No files selected
+    if(fileNames.count() == 0)
+        return;
+
+    // Loads the first selected file
+    auto xml = new XMLReader();
+    int res = xml->read(fileNames.first());
+    if(res == -1)
+        return;
+
+    // Insert loaded colorpairs in theme
+    Theme *theme = new Theme("New theme");
+    for(auto i : xml->getSet())
+    {
+        auto color = new ColorPair(i);
+        theme->addColorpair(color);
+    }
+
+    // Display newly imported theme
+    createTheme(theme);
 }
 
 /*****************************************/

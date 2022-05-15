@@ -24,6 +24,7 @@ class Theme {
     Theme(); //constructeur vide
     Theme(const Theme &theme); //con. par copie
     Theme(const QUuid &id, const QString &name, QSet<ColorPair*> *colorPairs);
+    Theme(const QString &name, QSet<ColorPair*> *colorPairs); //con. initialisant uniquement le nom et le set
     Theme(const QString &name); //con. initialisant uniquement le nom
 
     void setID(const QUuid &id);
@@ -33,6 +34,7 @@ class Theme {
     QString getName();
 
     QSet<ColorPair*> *getColorpairs();
+    void addColorpair(ColorPair* colorpair);
 
     void setEdited(const bool &edited);
     bool getEdited();
