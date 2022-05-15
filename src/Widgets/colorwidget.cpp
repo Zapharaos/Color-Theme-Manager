@@ -11,7 +11,7 @@ ColorWidget::ColorWidget(QWidget *parent) :
     ui->setupUi(this);
 
     // Set delete button icon
-    ui->deleteButton->setIcon(QIcon("../color-theme-manager/resource/icons/feather/trash-2.svg"));
+    ui->deleteButton->setIcon(QIcon(":/res/resource/icons/feather/trash-2.svg"));
 
     // ThemeWidget Signals :
     connect(this, SIGNAL(sendRemoveColor(ColorPair *)), parent, SLOT(removeColor(ColorPair *)));
@@ -77,7 +77,7 @@ void ColorWidget::loadColor(ColorPair *color)
 void ColorWidget::on_deleteButton_clicked()
 {
     QMessageBox popup;
-    popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+    popup.setWindowIcon(QIcon(":/res/resource/icons/feather/pen-tool.svg"));
     popup.setWindowTitle("Confirm Deletion");
     popup.setIcon(QMessageBox::Question);
     popup.setText(QString("Delete the color \"%1\"?").arg(m_color->GetName()));

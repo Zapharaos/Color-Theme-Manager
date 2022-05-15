@@ -287,5 +287,7 @@
         <file>resource/icons/feather/zap-off.svg</file>
         <file>resource/icons/feather/zoom-in.svg</file>
         <file>resource/icons/feather/zoom-out.svg</file>
+        <file>resource/images/easteregg.png</file>
+        <file>resource/gifs/loader.gif</file>
     </qresource>
 </RCC>

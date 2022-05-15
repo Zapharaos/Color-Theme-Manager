@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Loader
-    QMovie *movie = new QMovie("../color-theme-manager/resource/gifs/loader.gif");
+    QMovie *movie = new QMovie(":/res/resource/gifs/loader.gif");
     movie->setScaledSize(QSize(20,20));
     ui->loading->setMovie(movie);
     ui->loading->show();
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Collapse/Expand pushButton :
     ui->toggleMenu->setOrientation(OrientablePushButton::VerticalBottomToTop); // vertical
-    ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-up.svg"));
+    ui->toggleMenu->setIcon(QIcon(":/res/resource/icons/feather/corner-left-up.svg"));
 
     // Set item's icon size
     ui->listWidget->setIconSize(QSize(35,35));
@@ -96,7 +96,7 @@ void MainWindow::displayTheme(Theme *theme)
     // New list item
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
-    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
+    item->setIcon(QIcon(":/res/resource/images/easteregg.png"));
 
     // Adding item + widget to list
     m_themes->addTheme(widget->getTheme());
@@ -111,7 +111,7 @@ int MainWindow::checkThemeChanges(Theme *theme)
     if(theme->getEdited())
     {
         QMessageBox popup;
-        popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+        popup.setWindowIcon(QIcon(":/res/resource/icons/feather/pen-tool.svg"));
         popup.setWindowTitle("Saving");
         popup.setIcon(QMessageBox::Question);
         popup.setText(QString("Save the theme \"%1\"?").arg(theme->getName()));
@@ -156,7 +156,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         if(theme->getEdited() == false) continue;
 
         QMessageBox popup;
-        popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+        popup.setWindowIcon(QIcon(":/res/resource/icons/feather/pen-tool.svg"));
         popup.setWindowTitle("Leaving");
         popup.setIcon(QMessageBox::Question);
         popup.setText(QString("Leave without saving?"));
@@ -191,7 +191,7 @@ void MainWindow::showDialog(QString title, QString text)
 {
     popup = new QMessageBox(this);
     popup->setIcon(QMessageBox::NoIcon);
-    popup->setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+    popup->setWindowIcon(QIcon(":/res/resource/icons/feather/pen-tool.svg"));
     popup->setWindowTitle(title);
     popup->setText(text);
 
@@ -221,7 +221,7 @@ void MainWindow::createTheme()
     // New list item
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
-    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
+    item->setIcon(QIcon(":/res/resource/images/easteregg.png"));
 
     // Adding item + widget to list
     ui->listWidget->addItem(item);
@@ -245,7 +245,7 @@ void MainWindow::createTheme(Theme* theme)
     // New list item
     auto item = new QListWidgetItem();
     item->setSizeHint(widget->sizeHint());
-    item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
+    item->setIcon(QIcon(":/res/resource/images/easteregg.png"));
 
     // Adding item + widget to list
     ui->listWidget->addItem(item);
@@ -261,13 +261,13 @@ void MainWindow::toggleMenu()
 {
     if(ui->toggleMenu->text() == "Collapse")
     {
-        ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-down.svg"));
+        ui->toggleMenu->setIcon(QIcon(":/res/resource/icons/feather/corner-left-down.svg"));
         ui->toggleMenu->setText("Expand");
         ui->listWidget->setVisible(false);
     }
     else
     {
-        ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-up.svg"));
+        ui->toggleMenu->setIcon(QIcon(":/res/resource/icons/feather/corner-left-up.svg"));
         ui->toggleMenu->setText("Collapse");
         ui->listWidget->setVisible(true);
     }
