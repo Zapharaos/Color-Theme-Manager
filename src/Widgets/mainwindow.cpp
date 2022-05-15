@@ -2,9 +2,10 @@
 #include "ui_mainwindow.h"
 
 #include "menuitemwidget.h"
+#include <QTimer>
+#include <QMovie>
 #include <QCloseEvent>
 #include <QDebug>
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QIcon>
 #include <QPixmap>
@@ -15,12 +16,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Loader
+    QMovie *movie = new QMovie("../color-theme-manager/resource/gifs/loader.gif");
+    movie->setScaledSize(QSize(20,20));
+    ui->loading->setMovie(movie);
+    ui->loading->show();
+    startLoading();
+
     // Collapse/Expand pushButton :
     ui->toggleMenu->setOrientation(OrientablePushButton::VerticalBottomToTop); // vertical
     ui->toggleMenu->setIcon(QIcon("../color-theme-manager/resource/icons/feather/corner-left-up.svg"));
 
     // Set item's icon size
     ui->listWidget->setIconSize(QSize(35,35));
+
+    ui->loading->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    ui->loading->setContentsMargins(0,0,0,0);
 
     // Load themes
     m_themes = new Themes();
@@ -58,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL(sendTheme()), ui->theme, SLOT(clearTheme())); // clear Theme
     connect(this, SIGNAL(sendTheme(Theme*)), ui->theme, SLOT(loadTheme(Theme*))); // load Theme
     connect(this, SIGNAL(sendCreateColor()), ui->theme, SLOT(createColor())); // create Color
+
+    stopLoading();
 }
 
 MainWindow::~MainWindow()
@@ -160,6 +173,34 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         }
         return;
     }
+}
+
+void MainWindow::startLoading()
+{
+    ui->loading->movie()->start();
+    ui->loading->setVisible(true);
+}
+
+void MainWindow::stopLoading()
+{
+    ui->loading->movie()->stop();
+    ui->loading->setVisible(false);
+}
+
+void MainWindow::showDialog(QString title, QString text)
+{
+    popup = new QMessageBox(this);
+    popup->setIcon(QMessageBox::NoIcon);
+    popup->setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+    popup->setWindowTitle(title);
+    popup->setText(text);
+
+    popup->setStandardButtons(QMessageBox::Ok);
+    popup->setAttribute(Qt::WA_DeleteOnClose); // delete pointer after close
+    popup->setModal(false);
+    popup->show();
+
+    QTimer::singleShot(3000, popup, SLOT(close()));
 }
 
 /*****************************************/
@@ -265,16 +306,24 @@ void MainWindow::saveTheme(Theme *theme)
 
         // No files selected
         if(fileNames.count() == 0)
+        {
+            stopLoading();
             return;
+        }
 
         // Set path
         theme->setPath(fileNames.first());
     }
 
+    startLoading();
+
     // Open file
     QFile file(theme->getPath());
     if(!file.open(QIODevice::WriteOnly)) // default : QIODevice::Text
+    {
+        stopLoading();
         return;
+    }
 
     // Generate XML
     QDomDocument doc;
@@ -314,8 +363,8 @@ void MainWindow::saveTheme(Theme *theme)
         }
     }
 
-
     theme->setEdited(false);
+    stopLoading();
 }
 
 // Event : Save theme (Ctrl+S)
@@ -329,6 +378,7 @@ void MainWindow::saveCurrent()
     QListWidgetItem* item = ui->listWidget->currentItem();
     MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
     saveTheme(itemWidget->getTheme());
+    showDialog("Popup", QString("The theme \"%1\" has been saved").arg(itemWidget->getTheme()->getName()));
 }
 
 // Event : Save all themes (Ctrl+Shift+S)
@@ -337,6 +387,7 @@ void MainWindow::saveAllThemes()
     for(Theme *theme : m_themes->getThemes())
         if(theme->getEdited())
             saveTheme(theme);
+    showDialog("Popup", "All themes were saved");
 }
 
 // Event : Import theme (Ctrl+I)
@@ -357,11 +408,16 @@ void MainWindow::importTheme()
     if(fileNames.count() == 0)
         return;
 
+    startLoading();
+
     // Loads the first selected file
     auto xml = new XMLReader();
     int res = xml->read(fileNames.first());
     if(res == -1)
+    {
+        stopLoading();
         return;
+    }
 
     // Insert loaded colorpairs in theme
     Theme *theme = new Theme(xml->getName());
@@ -375,6 +431,7 @@ void MainWindow::importTheme()
     // Display newly imported theme
     createTheme(theme);
     theme->setEdited(false);
+    stopLoading();
 }
 
 // Event : Apply theme (Ctrl+E)
@@ -398,6 +455,8 @@ void MainWindow::applyTheme()
     if(fileNames.count() == 0)
         return;
 
+    startLoading();
+
     // Cast current item to theme
     QListWidgetItem* item = ui->listWidget->currentItem();
     MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
@@ -406,7 +465,10 @@ void MainWindow::applyTheme()
     // Read the file
     QFile file(fileNames.first());
     if(!file.open(QIODevice::ReadWrite)) // default : QIODevice::Text
+    {
+        stopLoading();
         return;
+    }
     QString text(file.readAll());
 
     // Replace each "source" occurrence by "target"
@@ -419,6 +481,8 @@ void MainWindow::applyTheme()
 
     // Close file
     file.close();
+    stopLoading();
+    showDialog("Popup", QString("The theme \"%1\" has been applied").arg(theme->getName()));
 }
 
 /*****************************************/
@@ -426,7 +490,6 @@ void MainWindow::applyTheme()
 /*****************************************/
 
 // Event : Switch current theme
-
 void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     // Default item is enabled
@@ -442,9 +505,10 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 }
 
 // Event : Remove item from Menu
-
 void MainWindow::removeMenuItem(Theme *deleteTheme)
 {
+    startLoading();
+
     // Looking for the item's ID in menu
     for (int i = 0; i < ui->listWidget->count(); i++) {
 
@@ -473,4 +537,6 @@ void MainWindow::removeMenuItem(Theme *deleteTheme)
         defaultItem->setFlags(defaultItem->flags() & ~Qt::ItemIsEnabled);
         ui->listWidget->addItem(defaultItem);
     }
+
+    stopLoading();
 }

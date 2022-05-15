@@ -6,6 +6,7 @@
 #include "XMLReader.h"
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QUuid>
@@ -24,10 +25,14 @@ public:
 
     void displayTheme(Theme *theme);
     int checkThemeChanges(Theme *theme);
+    void startLoading();
+    void stopLoading();
+    void showDialog(QString title, QString text);
 
 private:
     Ui::MainWindow *ui;
     Themes *m_themes;
+    QMessageBox *popup;
 
 signals:
     void sendTheme();

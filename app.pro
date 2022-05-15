@@ -38,7 +38,7 @@ SOURCES += \
 	Widgets/themewidget.cpp \
 	Widgets/colorwidget.cpp \
 	XMLReader.cpp \
-	colorpair.cpp
+        colorpair.cpp
 
 HEADERS += \
     Theme.h \
@@ -49,12 +49,12 @@ HEADERS += \
     Widgets/colorwidget.h \
     XMLReader.h \
     colorpair.h \
-	mainwindow.h
+        mainwindow.h
 
 FORMS += \
 	mainwindow.ui \
 	colorwidget.ui \
-	menuitemwidget.ui \
+        menuitemwidget.ui \
 	themewidget.ui
 
 # Default rules for deployment.
