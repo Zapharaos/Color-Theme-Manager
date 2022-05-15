@@ -70,7 +70,7 @@ void ThemeWidget::createColor()
     ui->colorsList->addItem(item);
     ui->colorsList->setItemWidget(item, widget);
 
-    m_theme->getColorpairs()->insert(widget->getColor());
+    m_theme->getColorpairs()->append(widget->getColor());
     m_theme->setEdited(true);
 }
 
@@ -106,7 +106,7 @@ void ThemeWidget::removeColor(ColorPair *color)
         if(colorPair->GetID() == color->GetID())
         {
             // Update theme
-            m_theme->getColorpairs()->remove(color);
+            m_theme->getColorpairs()->removeOne(color);
             m_theme->setEdited(true);
             delete item;
             break;

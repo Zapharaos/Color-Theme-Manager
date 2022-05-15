@@ -11,7 +11,7 @@ Theme::Theme(const QString &name)
 {
     this->m_id = QUuid::createUuid();
     this->m_name = name;
-    this->m_colorPairs = new QSet<ColorPair*>();
+    this->m_colorPairs = new QList<ColorPair*>();
 }
 
 Theme::Theme(const Theme &theme)
@@ -21,14 +21,14 @@ Theme::Theme(const Theme &theme)
     this->m_colorPairs = theme.m_colorPairs;
 }
 
-Theme::Theme(const QUuid &id, const QString &name, QSet<ColorPair*> *colorPairs)
+Theme::Theme(const QUuid &id, const QString &name, QList<ColorPair*> *colorPairs)
 {
     this->m_id = id;
     this->m_name = name;
     this->m_colorPairs = colorPairs;
 }
 
-Theme::Theme(const QString &name, QSet<ColorPair*> *colorPairs)
+Theme::Theme(const QString &name, QList<ColorPair*> *colorPairs)
 {
     this->m_id = QUuid::createUuid();
     this->m_name = name;
@@ -51,7 +51,7 @@ QString Theme::getName() {
     return m_name;
 }
 
-QSet<ColorPair*> *Theme::getColorpairs()
+QList<ColorPair*> *Theme::getColorpairs()
 {
     return m_colorPairs;
 }
@@ -59,7 +59,7 @@ QSet<ColorPair*> *Theme::getColorpairs()
 void Theme::addColorpair(ColorPair* colorpair)
 {
     qDebug() << colorpair->GetName();
-    m_colorPairs->insert(colorpair);
+    m_colorPairs->append(colorpair);
 }
 
 void Theme::setEdited(const bool &edited) {

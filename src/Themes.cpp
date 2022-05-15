@@ -11,12 +11,12 @@ Themes::Themes(const Themes &themes)
     this->m_themes = themes.m_themes;
 }
 
-Themes::Themes(QSet<Theme*> themes)
+Themes::Themes(QList<Theme*> themes)
 {
     this->m_themes = themes;
 }
 
-QSet<Theme*> Themes::getThemes()
+QList<Theme*> Themes::getThemes()
 {
     return m_themes;
 }
