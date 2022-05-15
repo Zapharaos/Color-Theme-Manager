@@ -20,7 +20,11 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLineEdit" name="name"/>
+    <widget class="QLineEdit" name="name">
+     <property name="text">
+      <string>New theme</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QListWidget" name="colorsList">

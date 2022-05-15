@@ -47,7 +47,6 @@ void ThemeWidget::loadTheme(Theme *theme)
 void ThemeWidget::clearTheme()
 {
     ui->colorsList->clear();
-    ui->name->clear();
     ui->name->setVisible(false);
 }
 
