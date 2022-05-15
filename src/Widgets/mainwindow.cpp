@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveCurrent())); // save Theme
     connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAllThemes())); // save Themes
     connect(ui->actionImport_theme, SIGNAL(triggered()), this, SLOT(importTheme())); // import Themes
+    connect(ui->actionApply_theme, SIGNAL(triggered()), this, SLOT(applyTheme())); // apply Theme
 
     // ThemeWidget Signals :
     connect(this, SIGNAL(sendTheme()), ui->theme, SLOT(clearTheme())); // clear Theme
@@ -287,6 +288,10 @@ void MainWindow::saveTheme(Theme *theme)
 // Event : Save theme (Ctrl+S)
 void MainWindow::saveCurrent()
 {
+    // Check if head is default : nothing to save
+    if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
+        return;
+
     // Cast current item to theme
     QListWidgetItem* item = ui->listWidget->currentItem();
     MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
@@ -336,6 +341,14 @@ void MainWindow::importTheme()
     // Display newly imported theme
     createTheme(theme);
     theme->setEdited(false);
+}
+
+// Event : Apply theme (Ctrl+E)
+void MainWindow::applyTheme()
+{
+    // Check if head is default : nothing to apply
+    if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
+        return;
 }
 
 /*****************************************/

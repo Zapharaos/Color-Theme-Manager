@@ -88,6 +88,7 @@
     </property>
     <addaction name="actionSave"/>
     <addaction name="actionCreate_new_color"/>
+    <addaction name="actionApply_theme"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -98,6 +99,7 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <addaction name="actionCollapse_Expand_menu"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -111,7 +113,6 @@
     <addaction name="actionSave_all"/>
     <addaction name="actionCreate_new_theme"/>
     <addaction name="actionImport_theme"/>
-    <addaction name="actionCollapse_Expand_menu"/>
    </widget>
    <addaction name="menuThemes"/>
    <addaction name="menuTheme"/>
@@ -149,6 +150,7 @@
    <addaction name="actionImport_theme"/>
    <addaction name="separator"/>
    <addaction name="actionCreate_new_color"/>
+   <addaction name="actionApply_theme"/>
    <addaction name="separator"/>
    <addaction name="actionCollapse_Expand_menu"/>
   </widget>
@@ -167,7 +169,7 @@
   <action name="actionCreate_new_color">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/res/resource/icons/feather/plus-circle.svg</normaloff>:/res/resource/icons/feather/plus-circle.svg</iconset>
+     <normaloff>:/res/resource/icons/feather/file-plus.svg</normaloff>:/res/resource/icons/feather/file-plus.svg</iconset>
    </property>
    <property name="text">
     <string>Create new color</string>
@@ -179,7 +181,7 @@
   <action name="actionCreate_new_theme">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/res/resource/icons/feather/file-plus.svg</normaloff>:/res/resource/icons/feather/file-plus.svg</iconset>
+     <normaloff>:/res/resource/icons/feather/folder-plus.svg</normaloff>:/res/resource/icons/feather/folder-plus.svg</iconset>
    </property>
    <property name="text">
     <string>Create new theme</string>
@@ -189,18 +191,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
-   </property>
-  </action>
-  <action name="actionCollapse_Expand_menu">
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/res/resource/icons/feather/arrow-down-left.svg</normaloff>:/res/resource/icons/feather/arrow-down-left.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Toggle menu</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionSave_all">
@@ -218,13 +208,37 @@
   <action name="actionImport_theme">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/res/resource/icons/feather/upload.svg</normaloff>:/res/resource/icons/feather/upload.svg</iconset>
+     <normaloff>:/res/resource/icons/feather/download.svg</normaloff>:/res/resource/icons/feather/download.svg</iconset>
    </property>
    <property name="text">
     <string>Import theme</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionCollapse_Expand_menu">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/columns.svg</normaloff>:/res/resource/icons/feather/columns.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Toggle menu</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionApply_theme">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/resource/icons/feather/upload.svg</normaloff>:/res/resource/icons/feather/upload.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Apply theme</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

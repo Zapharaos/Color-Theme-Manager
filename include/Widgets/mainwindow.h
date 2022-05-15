@@ -45,6 +45,7 @@ private slots:
     void saveCurrent();
     void saveAllThemes();
     void importTheme();
+    void applyTheme();
     void closeEvent(QCloseEvent *event);
 
     // ThemeWidget
