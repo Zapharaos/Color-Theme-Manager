@@ -21,6 +21,16 @@ QList<Theme*> Themes::getThemes()
     return m_themes;
 }
 
+void Themes::addTheme(Theme *theme)
+{
+    m_themes.append(theme);
+}
+
+void Themes::removeTheme(Theme *theme)
+{
+    m_themes.removeOne(theme);
+}
+
 int Themes::StoreInFile()
 {
     int error = 0;

@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionCollapse_Expand_menu, SIGNAL(triggered()), this, SLOT(toggleMenu())); // toggle Menu
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme())); // create Theme
     connect(ui->actionCreate_new_color, SIGNAL(triggered()), this, SLOT(transmitCreateColor())); // create Color
-    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveTheme())); // save Theme
+    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveCurrent())); // save Theme
     connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAllThemes())); // save Themes
     connect(ui->actionImport_theme, SIGNAL(triggered()), this, SLOT(importTheme())); // import Themes
 
@@ -84,6 +84,7 @@ void MainWindow::displayTheme(Theme *theme)
     item->setIcon(QIcon("../color-theme-manager/resource/images/easteregg.png"));
 
     // Adding item + widget to list
+    m_themes->addTheme(widget->getTheme());
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
 }
@@ -108,7 +109,7 @@ int MainWindow::checkThemeChanges(Theme *theme)
             case QMessageBox::Cancel:
                 break;
             case QMessageBox::Save:
-                saveTheme();
+                saveCurrent();
                 theme->setEdited(false);
                 break;
             case QMessageBox::Discard:
@@ -147,6 +148,7 @@ void MainWindow::createTheme()
     ui->listWidget->setItemWidget(item, widget);
 
     // Sets the current item
+    m_themes->addTheme(widget->getTheme());
     ui->listWidget->setCurrentItem(item);
 }
 
@@ -170,6 +172,7 @@ void MainWindow::createTheme(Theme* theme)
     ui->listWidget->setItemWidget(item, widget);
 
     // Sets the current item
+    m_themes->addTheme(widget->getTheme());
     ui->listWidget->setCurrentItem(item);
 }
 
@@ -205,14 +208,9 @@ void MainWindow::transmitCreateColor()
     emit sendCreateColor();
 }
 
-// Event : Save theme (Ctrl+S)
-void MainWindow::saveTheme()
+// Save specified theme
+void MainWindow::saveTheme(Theme *theme)
 {
-    // Cast current item to theme
-    QListWidgetItem* item = ui->listWidget->currentItem();
-    MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
-    Theme *theme = itemWidget->getTheme();
-
     // If path to file doesnt exists
     if(QFileInfo::exists(theme->getPath()) == false)
     {
@@ -264,13 +262,21 @@ void MainWindow::saveTheme()
     theme->setEdited(false);
 }
 
+// Event : Save theme (Ctrl+S)
+void MainWindow::saveCurrent()
+{
+    // Cast current item to theme
+    QListWidgetItem* item = ui->listWidget->currentItem();
+    MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+    saveTheme(itemWidget->getTheme());
+}
+
 // Event : Save all themes (Ctrl+Shift+S)
 void MainWindow::saveAllThemes()
 {
     for(Theme *theme : m_themes->getThemes())
-    {
-        // TODO : save theme
-    }
+        if(theme->getEdited())
+            saveTheme(theme);
 }
 
 // Event : Import theme (Ctrl+I)
@@ -307,6 +313,7 @@ void MainWindow::importTheme()
 
     // Display newly imported theme
     createTheme(theme);
+    theme->setEdited(false);
 }
 
 /*****************************************/
@@ -333,7 +340,7 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 
 void MainWindow::removeMenuItem(const QUuid &id)
 {
-    // Looking for the item's ID
+    // Looking for the item's ID in menu
     for (int i = 0; i < ui->listWidget->count(); i++) {
 
         // Cast item to theme
@@ -346,7 +353,16 @@ void MainWindow::removeMenuItem(const QUuid &id)
             // Check if action is required
             auto res = checkThemeChanges(theme);
             if(res != QMessageBox::Cancel)
+            {
                 delete item;
+                // Looking for the item's ID in themes
+                for(auto theme : m_themes->getThemes())
+                {
+                    if(theme->getID() == id)
+                        m_themes->removeTheme(theme);
+                    break;
+                }
+            }
             break;
         }
     }

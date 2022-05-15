@@ -27,6 +27,8 @@ class Themes {
     Themes(QList<Theme*> themes); //con. initialisant uniquement le set
 
     QList<Theme*> getThemes();
+    void addTheme(Theme *theme);
+    void removeTheme(Theme *theme);
 
     int StoreInFile();
     std::pair<Themes,int> ReadFromFile();

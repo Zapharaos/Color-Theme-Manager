@@ -41,7 +41,8 @@ private slots:
     void toggleMenu();
     void on_toggleMenu_clicked();
     void transmitCreateColor();
-    void saveTheme();
+    void saveTheme(Theme *theme);
+    void saveCurrent();
     void saveAllThemes();
     void importTheme();
 
