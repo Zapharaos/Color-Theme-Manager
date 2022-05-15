@@ -45,9 +45,10 @@ private slots:
     void saveCurrent();
     void saveAllThemes();
     void importTheme();
+    void closeEvent(QCloseEvent *event);
 
     // ThemeWidget
-    void removeMenuItem(const QUuid &id);
+    void removeMenuItem(Theme *deleteTheme);
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };
 #endif // MAINWINDOW_H

@@ -123,6 +123,11 @@ int MainWindow::checkThemeChanges(Theme *theme)
     return -1;
 }
 
+// Close application : suggest to save the remaining themes
+void MainWindow::closeEvent(QCloseEvent *event) {
+     saveAllThemes();
+}
+
 /*****************************************/
 /***         Self connections          ***/
 /*****************************************/
@@ -259,6 +264,23 @@ void MainWindow::saveTheme(Theme *theme)
     // Close file
     file.close();
 
+    // Looking for the item's ID in menu
+    for (int i = 0; i < ui->listWidget->count(); i++) {
+
+        // Cast item to theme
+        QListWidgetItem* item = ui->listWidget->item(i);
+        MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+        Theme *itemTheme = itemWidget->getTheme();
+
+        // Check if theme is corresponding
+        if (theme == itemTheme)
+        {
+            itemWidget->updateLabel();
+            break;
+        }
+    }
+
+
     theme->setEdited(false);
 }
 
@@ -338,7 +360,7 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 
 // Event : Remove item from Menu
 
-void MainWindow::removeMenuItem(const QUuid &id)
+void MainWindow::removeMenuItem(Theme *deleteTheme)
 {
     // Looking for the item's ID in menu
     for (int i = 0; i < ui->listWidget->count(); i++) {
@@ -349,19 +371,13 @@ void MainWindow::removeMenuItem(const QUuid &id)
         Theme *theme = itemWidget->getTheme();
 
         // Check if theme is corresponding
-        if (theme->getID() == id){
+        if (theme == deleteTheme){
             // Check if action is required
             auto res = checkThemeChanges(theme);
             if(res != QMessageBox::Cancel)
             {
                 delete item;
-                // Looking for the item's ID in themes
-                for(auto theme : m_themes->getThemes())
-                {
-                    if(theme->getID() == id)
-                        m_themes->removeTheme(theme);
-                    break;
-                }
+                m_themes->removeTheme(theme);
             }
             break;
         }

@@ -11,7 +11,7 @@ MenuItemWidget::MenuItemWidget(QWidget *parent) :
     ui->toolButton->setIcon(QIcon("../color-theme-manager/resource/icons/feather/x.svg"));
 
     // MainWindow Signals :
-    connect(this, SIGNAL(sendRemoveItem(const QUuid &)), parent, SLOT(removeMenuItem(const QUuid &)));
+    connect(this, SIGNAL(sendRemoveItem(Theme *)), parent, SLOT(removeMenuItem(Theme *)));
 }
 
 MenuItemWidget::~MenuItemWidget()
@@ -43,11 +43,16 @@ Theme* MenuItemWidget::getTheme()
     return m_theme;
 }
 
+void MenuItemWidget::updateLabel()
+{
+    ui->label->setText(m_theme->getName());
+}
+
 /*****************************************/
 /***              Events               ***/
 /*****************************************/
 
 void MenuItemWidget::on_toolButton_clicked()
 {
-    emit sendRemoveItem(m_theme->getID());
+    emit sendRemoveItem(m_theme);
 }

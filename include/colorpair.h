@@ -21,7 +21,7 @@ class ColorPair {
     public:
     ColorPair(); //constructeur vide
     ColorPair(const ColorPair &color); //con. par copie
-    ColorPair(const QString &name, const QColor &source, const QColor &target);
+    ColorPair(const QString &name, const QString &source, const QString &target);
     ColorPair(const QUuid &id, const QString &name, const QColor &source, const QColor &target);
     ColorPair(const QString &name); //con. initialisant uniquement l’identifiant
 

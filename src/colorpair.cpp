@@ -18,11 +18,11 @@ ColorPair::ColorPair(const ColorPair &color) {
     this->m_target = color.m_target;
 }
 
-ColorPair::ColorPair(const QString &name, const QColor &source, const QColor &target) {
+ColorPair::ColorPair(const QString &name, const QString &source, const QString &target) {
     this->m_id = QUuid::createUuid();
     this->m_name = name;
-    this->m_source = source;
-    this->m_target = target;
+    this->m_source = fromRGBA(source);
+    this->m_target = fromRGBA(target);
 }
 
 ColorPair::ColorPair(const QUuid &id, const QString &name, const QColor &source, const QColor &target) {

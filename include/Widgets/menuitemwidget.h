@@ -19,13 +19,14 @@ public:
     void setTheme(const QString &name);
     void setTheme(Theme *theme);
     Theme* getTheme();
+    void updateLabel();
 
 private:
     Ui::MenuItemWidget *ui;
     Theme *m_theme;
 
 signals:
-    void sendRemoveItem(const QUuid &id);
+    void sendRemoveItem(Theme *theme);
 
 private slots:
     void on_toolButton_clicked();
