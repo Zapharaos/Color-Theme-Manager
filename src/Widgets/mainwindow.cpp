@@ -312,6 +312,7 @@ void MainWindow::importTheme()
     // Init dialog
     QFileDialog dialog(this);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setNameFilter("(*.xml)");
     QStringList fileNames;
 
@@ -349,6 +350,42 @@ void MainWindow::applyTheme()
     // Check if head is default : nothing to apply
     if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
         return;
+
+    // Init dialog
+    QFileDialog dialog(this);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    QStringList fileNames;
+
+    // Launch dialog
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+    // No files selected
+    if(fileNames.count() == 0)
+        return;
+
+    // Cast current item to theme
+    QListWidgetItem* item = ui->listWidget->currentItem();
+    MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+    Theme *theme = itemWidget->getTheme();
+
+    // Read the file
+    QFile file(fileNames.first());
+    if(!file.open(QIODevice::ReadWrite)) // default : QIODevice::Text
+        return;
+    QString text(file.readAll());
+
+    // Replace each "source" occurrence by "target"
+    for(auto color : *(theme->getColorpairs()))
+        auto reg = text.replace(ColorPair::toRGBA(color->GetSource()), ColorPair::toRGBA(color->GetTarget())); // replace text in string
+
+    // Update the file data
+    file.seek(0);
+    file.write(text.toUtf8());
+
+    // Close file
+    file.close();
 }
 
 /*****************************************/
