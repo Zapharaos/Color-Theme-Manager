@@ -4,6 +4,17 @@ L'objectif de ce projet est de réaliser, via C++ et QtCreator, un logiciel perm
 
 ![alt text](resource/report/gifs/global-look.gif)
 
+## Compilation
+
+### Windows
+
+Si vous évoluez sur un environnement Windows, je vous invite à consulter les releases sur ce repository qui contient un fichier exécutable.
+Voir [ci-joint](https://doc.qt.io/qt-5/windows-deployment.html) pour la documentation sur la méthode suivie afin de générer cet exécutable.
+
+### Linux
+
+Malheureusement, la méthode utilisée précédemment pour Windows n'est pas compatible sur Linux. En effet, bien qu'il existe une méthode similaire, elle n'est en revanche pas développée par Qt et j'ai donc décidé de ne pas m'en servir. Cependant, étant donné que les jobs CI/CD ne posent pas de problèmes, j'imagine que la compilation depuis QtCreator ne devrait pas non plus en poser.
+
 ## Fonctionnalités développées
 
 ### Avec raccourcis :
