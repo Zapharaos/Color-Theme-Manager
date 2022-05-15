@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "menuitemwidget.h"
+#include <QSettings>
 #include <QTimer>
 #include <QMovie>
 #include <QCloseEvent>
@@ -34,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->loading->setContentsMargins(0,0,0,0);
 
     // Load themes
+    readSettings();
     m_themes = new Themes();
     ui->listWidget->clear();
     for(Theme *theme : m_themes->getThemes())
@@ -166,6 +168,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         switch(res)
         {
             case QMessageBox::Yes:
+                writeSettings();
+                event->accept();
                 break;
             case QMessageBox::No:
                 event->ignore();
@@ -201,6 +205,14 @@ void MainWindow::showDialog(QString title, QString text)
     popup->show();
 
     QTimer::singleShot(3000, popup, SLOT(close()));
+}
+
+void MainWindow::readSettings() {
+    QSettings settings("MatthieuFreitag", "Themes Manager");
+}
+
+void MainWindow::writeSettings() {
+    QSettings settings("MatthieuFreitag", "Themes Manager");
 }
 
 /*****************************************/

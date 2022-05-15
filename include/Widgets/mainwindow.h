@@ -28,6 +28,8 @@ public:
     void startLoading();
     void stopLoading();
     void showDialog(QString title, QString text);
+    void readSettings();
+    void writeSettings();
 
 private:
     Ui::MainWindow *ui;
