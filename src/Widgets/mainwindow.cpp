@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "menuitemwidget.h"
+#include <QCloseEvent>
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -126,7 +127,39 @@ int MainWindow::checkThemeChanges(Theme *theme)
 
 // Close application : suggest to save the remaining themes
 void MainWindow::closeEvent(QCloseEvent *event) {
-     saveAllThemes();
+
+    // Check if head is default : leave
+    if(ui->listWidget->count() == 1 && ui->listWidget->item(0)->text() == "No themes yet !")
+        return;
+
+    // Looking for the item's ID in menu
+    for (int i = 0; i < ui->listWidget->count(); i++) {
+
+        // Cast item to theme
+        QListWidgetItem* item = ui->listWidget->item(i);
+        MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+        Theme *theme = itemWidget->getTheme();
+
+        if(theme->getEdited() == false) continue;
+
+        QMessageBox popup;
+        popup.setWindowIcon(QIcon("../color-theme-manager/resource/icons/feather/pen-tool.svg"));
+        popup.setWindowTitle("Leaving");
+        popup.setIcon(QMessageBox::Question);
+        popup.setText(QString("Leave without saving?"));
+        popup.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+        int res = popup.exec();
+        switch(res)
+        {
+            case QMessageBox::Yes:
+                break;
+            case QMessageBox::No:
+                event->ignore();
+                break;
+        }
+        return;
+    }
 }
 
 /*****************************************/
