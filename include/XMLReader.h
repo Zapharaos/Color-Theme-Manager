@@ -16,9 +16,11 @@ class XMLReader {
     XMLReader(XMLReader::Set &set);
     int read(const QString &path);
     Set getSet();
+    QString getName();
 
     private:
     Set m_set;
+    QString m_name;
 };
 
 #endif // XMLREADER_H

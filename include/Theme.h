@@ -18,6 +18,7 @@ class Theme {
     QUuid m_id;
     QString m_name;
     QList<ColorPair*> *m_colorPairs;
+    QString m_path;
     bool m_edited = false;
 
     public:
@@ -35,6 +36,9 @@ class Theme {
 
     QList<ColorPair*> *getColorpairs();
     void addColorpair(ColorPair* colorpair);
+
+    void setPath(const QString &path);
+    QString getPath();
 
     void setEdited(const bool &edited);
     bool getEdited();

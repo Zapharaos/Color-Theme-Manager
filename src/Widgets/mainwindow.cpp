@@ -48,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionCollapse_Expand_menu, SIGNAL(triggered()), this, SLOT(toggleMenu())); // toggle Menu
     connect(ui->actionCreate_new_theme, SIGNAL(triggered()), this, SLOT(createTheme())); // create Theme
     connect(ui->actionCreate_new_color, SIGNAL(triggered()), this, SLOT(transmitCreateColor())); // create Color
-    connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAll())); // save Themes
+    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveTheme())); // save Theme
+    connect(ui->actionSave_all, SIGNAL(triggered()), this, SLOT(saveAllThemes())); // save Themes
     connect(ui->actionImport_theme, SIGNAL(triggered()), this, SLOT(importTheme())); // import Themes
 
     // ThemeWidget Signals :
@@ -107,7 +108,7 @@ int MainWindow::checkThemeChanges(Theme *theme)
             case QMessageBox::Cancel:
                 break;
             case QMessageBox::Save:
-                // TODO : save theme
+                saveTheme();
                 theme->setEdited(false);
                 break;
             case QMessageBox::Discard:
@@ -204,8 +205,67 @@ void MainWindow::transmitCreateColor()
     emit sendCreateColor();
 }
 
+// Event : Save theme (Ctrl+S)
+void MainWindow::saveTheme()
+{
+    // Cast current item to theme
+    QListWidgetItem* item = ui->listWidget->currentItem();
+    MenuItemWidget* itemWidget = dynamic_cast<MenuItemWidget*>(ui->listWidget->itemWidget(item));
+    Theme *theme = itemWidget->getTheme();
+
+    // If path to file doesnt exists
+    if(QFileInfo::exists(theme->getPath()) == false)
+    {
+        // Init dialog
+        QFileDialog dialog(this);
+        dialog.setAcceptMode(QFileDialog::AcceptSave);
+        dialog.setNameFilter("XML File (*.xml)");
+        QStringList fileNames;
+
+        // Launch dialog
+        if (dialog.exec())
+            fileNames = dialog.selectedFiles();
+
+        // No files selected
+        if(fileNames.count() == 0)
+            return;
+
+        // Set path
+        theme->setPath(fileNames.first());
+    }
+
+    // Open file
+    QFile file(theme->getPath());
+    if(!file.open(QIODevice::WriteOnly)) // default : QIODevice::Text
+        return;
+
+    // Generate XML
+    QDomDocument doc;
+    QDomElement colors = doc.createElement("colors");
+    colors.setAttribute("name", theme->getName());
+    doc.appendChild(colors);
+
+    for(auto item : *(theme->getColorpairs()))
+    {
+        QDomElement color = doc.createElement("color");
+        color.setAttribute("target", ColorPair::toRGBA(item->GetTarget()));
+        color.setAttribute("source", ColorPair::toRGBA(item->GetSource()));
+        color.setAttribute("id", item->GetName());
+        colors.appendChild(color);
+    }
+
+    // Write to file
+    QTextStream stream(&file);
+    stream << doc.toString();
+
+    // Close file
+    file.close();
+
+    theme->setEdited(false);
+}
+
 // Event : Save all themes (Ctrl+Shift+S)
-void MainWindow::saveAll()
+void MainWindow::saveAllThemes()
 {
     for(Theme *theme : m_themes->getThemes())
     {
@@ -237,7 +297,8 @@ void MainWindow::importTheme()
         return;
 
     // Insert loaded colorpairs in theme
-    Theme *theme = new Theme("New theme");
+    Theme *theme = new Theme(xml->getName());
+    theme->setPath(fileNames.first());
     for(auto i : xml->getSet())
     {
         auto color = new ColorPair(i);

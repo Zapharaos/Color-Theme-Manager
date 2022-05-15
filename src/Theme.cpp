@@ -58,8 +58,15 @@ QList<ColorPair*> *Theme::getColorpairs()
 
 void Theme::addColorpair(ColorPair* colorpair)
 {
-    qDebug() << colorpair->GetName();
     m_colorPairs->append(colorpair);
+}
+
+void Theme::setPath(const QString &path) {
+    this->m_path = path;
+}
+
+QString Theme::getPath() {
+    return m_path;
 }
 
 void Theme::setEdited(const bool &edited) {

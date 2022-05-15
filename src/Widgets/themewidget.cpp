@@ -40,10 +40,7 @@ void ThemeWidget::loadTheme(Theme *theme)
     // Loads each colorpair
     ui->colorsList->clear();
     for(ColorPair *color : *(m_theme->getColorpairs()))
-    {
-        qDebug() << color->GetName();
         displayColor(color);
-    }
 }
 
 // Clear every displayed element -> hide
